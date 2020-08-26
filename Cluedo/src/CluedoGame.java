@@ -249,8 +249,8 @@ public class CluedoGame {
         return roll;
     }
 
-    public static void main(String[] args) {
-        CluedoGame game = new CluedoGame();
-        game.play();
-    }
+//    public static void main(String[] args) {
+//        CluedoGame game = new CluedoGame();
+//        game.play();
+//    }
 }
