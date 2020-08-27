@@ -30,6 +30,21 @@ public class MainView {
     // == Controllers ==================
     private MainController mainController;
 
+    // == View Elements ================
+    private JFrame gameWindow;
+
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem newGameMI;
+
+    private JLabel playerNameLabel;
+    private JPanel boardPanel;
+    private JButton rollButton;
+    private JButton suggestButton;
+    private JButton accuseButton;
+    private JLabel movesLabel;
+    private JTextArea cluesTextArea;
+
     public MainView() {
         mainController = new MainController();
         displayGameWindow();
@@ -43,7 +58,7 @@ public class MainView {
      */
     private void displayGameWindow() {
         //Define main window specs =========================================================
-        JFrame gameWindow = new JFrame("Cluedo");
+        gameWindow = new JFrame("Cluedo");
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameWindow.setResizable(false);
 
@@ -52,18 +67,18 @@ public class MainView {
         GridBagConstraints c = new GridBagConstraints();
 
         //Create menu bar ==================================================================
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
 
-        JMenu menu = new JMenu("Menu");
+        menu = new JMenu("Menu");
         menuBar.add(menu);
 
-        JMenuItem newGameMI = new JMenuItem("New Game");
+        newGameMI = new JMenuItem("New Game");
         menu.add(newGameMI);
 
         //Create game display ==============================================================
 
         //Player name label
-        JLabel playerNameLabel = new JLabel("Player Name: ");
+        playerNameLabel = new JLabel("Player Name: ");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -71,7 +86,7 @@ public class MainView {
         gameWindow.add(playerNameLabel, c);
 
         //Game board panel
-        JPanel boardPanel = new BoardView();
+        boardPanel = new BoardView();
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
         c.gridy = 1;
@@ -79,7 +94,7 @@ public class MainView {
         gameWindow.add(boardPanel, c);
 
         //Roll button
-        JButton rollButton = new JButton("Roll");
+        rollButton = new JButton("Roll");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 2;
@@ -87,7 +102,7 @@ public class MainView {
         gameWindow.add(rollButton, c);
 
         //Suggest button
-        JButton suggestButton = new JButton("Suggest");
+        suggestButton = new JButton("Suggest");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 3;
@@ -95,7 +110,7 @@ public class MainView {
         gameWindow.add(suggestButton, c);
 
         //Accuse button
-        JButton accuseButton = new JButton("Accuse");
+        accuseButton = new JButton("Accuse");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 4;
@@ -103,7 +118,7 @@ public class MainView {
         gameWindow.add(accuseButton, c);
 
         //Moves label
-        JLabel movesLabel = new JLabel("Moves Left: ");
+        movesLabel = new JLabel("Moves Left: ");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 2;
@@ -111,7 +126,7 @@ public class MainView {
         gameWindow.add(movesLabel, c);
 
         //Clues text area
-        JTextArea cluesTextArea = new JTextArea();
+        cluesTextArea = new JTextArea();
         cluesTextArea.setEditable(false);                       //Prevent user from editing text area
         JScrollPane cluesSP = new JScrollPane(cluesTextArea);   //Add scroll pane to text area
         c.fill = GridBagConstraints.HORIZONTAL;
