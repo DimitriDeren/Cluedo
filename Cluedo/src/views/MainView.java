@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Main Game Window View for Cluedo Game
+ * Main game window for Cluedo game
  */
 public class MainView {
 
@@ -73,12 +73,16 @@ public class MainView {
         menuBar.add(menu);
 
         newGameMI = new JMenuItem("New Game");
+        newGameMI.addActionListener(e -> {
+            //TODO: create popup for new game setup
+            NewGameView ngView = new NewGameView(mainController);
+        });
         menu.add(newGameMI);
 
         //Create game display ==============================================================
 
         //Player name label
-        playerNameLabel = new JLabel("Player Name: ");
+        playerNameLabel = new JLabel("models.Player Name: ");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -95,6 +99,9 @@ public class MainView {
 
         //Roll button
         rollButton = new JButton("Roll");
+        rollButton.addActionListener(e -> {
+            //TODO: call relevant method from controller
+        });
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 2;
@@ -103,6 +110,9 @@ public class MainView {
 
         //Suggest button
         suggestButton = new JButton("Suggest");
+        suggestButton.addActionListener(e -> {
+            //TODO: call relevant method from controller
+        });
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 3;
@@ -111,6 +121,9 @@ public class MainView {
 
         //Accuse button
         accuseButton = new JButton("Accuse");
+        accuseButton.addActionListener(e -> {
+            //TODO: call relevant method from controller
+        });
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 4;
@@ -129,7 +142,7 @@ public class MainView {
         cluesTextArea = new JTextArea();
         cluesTextArea.setEditable(false);                       //Prevent user from editing text area
         JScrollPane cluesSP = new JScrollPane(cluesTextArea);   //Add scroll pane to text area
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.BOTH;
         c.gridx = 1;
         c.gridy = 3;
         c.gridwidth = 1;
