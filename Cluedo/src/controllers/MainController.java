@@ -1,6 +1,11 @@
 package controllers;
 
-import java.util.*;
+import model.Board;
+import model.Cell;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class MainController {
 
@@ -11,127 +16,118 @@ public class MainController {
      * TODO: Update (or call update methods) of views here
      */
 
-    private ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
-            new Weapon("Candlestick"), new Weapon("Dagger"), new Weapon("Lead Pipe"),
-            new Weapon("Revolver"), new Weapon("Rope"), new Weapon("Spanner")));
+    private static Board board = new Board();
 
-    private ArrayList<Suspects> suspects = new ArrayList<>(Arrays.asList(
-            new Suspects("Miss Scarlett"), new Suspects("Colonel Mustard"), new Suspects("Mrs. White"),
-            new Suspects("Mr. Green"), new Suspects("Mrs. Peacock"), new Suspects("Professor Plum")
-    ));
+    public void accuseMethod() {
+        //========================= Initialize the Buttons and PopUp Menu =========================
+        JFrame frame = new JFrame("Accusation!");
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setSize(400, 150);
+        frame.setLocation(430, 100);
 
-    private ArrayList<Room> rooms = new ArrayList<>(Arrays.asList(
-            new Room("Kitchen"), new Room("Ball Room"), new Room("Conservatory"),
-            new Room("Dinning Room"), new Room("Billiard Room"), new Room("Library"),
-            new Room("Lounge"), new Room("Hall"), new Room("Study")
-    ));
+        JPanel panel = new JPanel();
 
-    private ArrayList<Player> players = new ArrayList<>();
-    private ArrayList<Item> murderPocket;
-    private Board board;
+        frame.add(panel);
 
-    private void play() {
-        setup();
-        playGame();
+        String[] suspect = { "SUSPECTS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        String[] weapon = { "WEAPONS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        String[] room = { "ROOMS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+
+        final JComboBox<String> selChoice = new JComboBox<String>(suspect);
+        final JComboBox<String> selWeap = new JComboBox<String>(weapon);
+        final JComboBox<String> selRoom = new JComboBox<String>(room);
+
+        selChoice.setVisible(true);
+        selWeap.setVisible(true);
+        selRoom.setVisible(true);
+        panel.add(selChoice);
+        panel.add(selWeap);
+        panel.add(selRoom);
+
+        JButton btn = new JButton("OK");
+        panel.add(btn);
+
+        JButton cancelBtn = new JButton("CANCEL");
+        panel.add(cancelBtn);
+
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: Close popup window when "OK" button is pressed.
+                Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
+                Object weapChoice = selWeap.getSelectedItem(); //gets weapon item from drop-down menu
+                Object roomChoice = selRoom.getSelectedItem(); //gets room item from drop-down menu
+                System.out.println(susChoice);
+                frame.dispose();
+            }
+        });
+
+        cancelBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+
+        //TODO: Get accusation method once "OK" button is pressed
+
     }
 
-    private void setup() {
-        // display setup window and get setup info, create player objects using GUI and add to array
+    public void suggestMethod() {
 
-        // Shuffle decks
-        Collections.shuffle(weapons);
-        Collections.shuffle(suspects);
-        Collections.shuffle(rooms);
+        //========================= Initialize the Buttons and PopUp Menu =========================
 
-        // Pick one random card from each deck to be in the murderPocket
-        murderPocket = new ArrayList<>();
-        murderPocket.add(suspects.get(0));
-        suspects.remove(0);
-        murderPocket.add(weapons.get(0));
-        weapons.remove(0);
-        murderPocket.add(rooms.get(0));
-        rooms.remove(0);
+        JFrame frame = new JFrame("Accusation!");
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setSize(200, 150);
+        frame.setLocation(430, 100);
 
-        // Rest of cards in to deck and shuffle deck
-        Stack<Item> deck = new Stack<>();
-        deck.addAll(weapons);
-        deck.addAll(suspects);
-        deck.addAll(rooms);
-        Collections.shuffle(deck);
 
-        // Deal cards to players hand
-        int count = 0;
-        while (!deck.isEmpty()) {
-            if (count == players.size()) {
-                count = 0;
+        JPanel panel = new JPanel();
+
+        frame.add(panel);
+
+        String[] suspect = { "SUSPECTS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        String[] weapon = { "WEAPONS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+
+        final JComboBox<String> selChoice = new JComboBox<String>(suspect);
+        final JComboBox<String> selWeap = new JComboBox<String>(weapon);
+
+        selChoice.setVisible(true);
+        selWeap.setVisible(true);
+        panel.add(selChoice);
+        panel.add(selWeap);
+
+        JButton btn = new JButton("OK");
+        panel.add(btn);
+
+        JButton cancelBtn = new JButton("CANCEL");
+        panel.add(cancelBtn);
+
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO: Close popup window when "OK" button is pressed.
+                Object choice = selChoice.getSelectedItem(); //gets item from drop-down menu
+                System.out.println(choice);
+                frame.dispose();
             }
+        });
 
-            players.get(count).addCard(deck.pop());
-            count++;
-        }
+        cancelBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+
+
+        //========================= Initialize the Buttons and PopUp Menu =========================
+
     }
 
-    private void playGame() {
-        int count = 0;
-        int totalLost = 0;
-        while (!gameOver) {
-            if (totalLost == players.size()) {
-                // GUI pop up saying all players are out and reveal the murder pocket
-                break;
-            }
-
-            // Player rolls dice, and moves
-            Player curr = players.get(count % players.size());
-
-            // skip player if they have already lost
-            if (curr.isLost()) {
-                count++;
-                continue;
-            }
-
-            // Display board and who's turn it is
-            int roll = rollDice();
-            // Update "moves left" count on GUI
-
-            // handle player actions
-            for (int i = 0; i < roll; i++) {
-                int choice = 0;
-                while (choice < 1 || choice > ((curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) ? 7 : 6)) {
-                    // Keyboard listener for player moves, or button push
-                    if (curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) {
-                        // Allow for suggestion button cause in room
-                    }
-                }
-
-                // Move logic
-                // needs to be redone around buttons and keyboard listening from GUI
-                /**if (choice <= 4) {
-                    roll += movementController(curr, choice);
-                } else if (choice == 5) {
-                    curr.checkClues();
-                    roll++;
-                } else if (choice == 6) {
-                    accusationController(curr);
-                    totalLost++;
-                    break;
-                } else {
-                    suggestionController(curr, (count % players.size()));
-                } */
-            }
-            count++;
-        }
-    }
-
-
-    private int rollDice() {
-        Random rand = new Random();
-        int roll = rand.nextInt(13);
-
-        if (roll == 0) {
-            roll = 1;
-        }
-
-        return roll;
-    }
-
+    public Cell[][] getCells() {return board.getCells();}
 }
+
