@@ -33,7 +33,7 @@ public class GUI extends JFrame {
     /*
      * the game
      */
-    //private CluedoGame game;
+    //private model.CluedoGame game;
 
     /**
      * the number of players

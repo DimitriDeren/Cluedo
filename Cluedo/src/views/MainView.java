@@ -16,6 +16,7 @@ public class MainView {
      * TODO: only GUI elements should be stored here
      * TODO: create object of needed controllers
      * TODO: action listeners should call relevant methods from controller objects and update view as needed
+     * TODO: get cell array from MainController
      */
 
     //Window dimensions
@@ -79,8 +80,8 @@ public class MainView {
 
         //Create game display ==============================================================
 
-        //Player name label
-        playerNameLabel = new JLabel("Player Name: ");
+        //model.Player name label
+        playerNameLabel = new JLabel("model.Player Name: ");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -88,7 +89,7 @@ public class MainView {
         gameWindow.add(playerNameLabel, c);
 
         //Game board panel
-        boardPanel = new BoardView();
+        boardPanel = new BoardView(mainController);
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
         c.gridy = 1;
