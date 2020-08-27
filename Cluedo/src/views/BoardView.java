@@ -5,6 +5,10 @@ import java.awt.*;
 
 public class BoardView extends JPanel {
 
+    /*
+     * TODO: note this code is just an example for testing display area on main view
+     */
+
     private static final int RECT_X = 0;
     private static final int RECT_Y = RECT_X;
     private static final int RECT_WIDTH = 800;
