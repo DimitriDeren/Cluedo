@@ -4,9 +4,11 @@ import controllers.MainController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * Main game window for Cluedo game
+ * Main Game Window View for Cluedo Game
  */
 public class MainView {
 
@@ -60,7 +62,7 @@ public class MainView {
         //Define main window specs =========================================================
         gameWindow = new JFrame("Cluedo");
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gameWindow.setResizable(false);
+        gameWindow.setResizable(true);
 
         gameWindow.setMinimumSize(new Dimension(WIDTH, HEIGHT));
         gameWindow.setLayout(new GridBagLayout());
@@ -73,16 +75,12 @@ public class MainView {
         menuBar.add(menu);
 
         newGameMI = new JMenuItem("New Game");
-        newGameMI.addActionListener(e -> {
-            //TODO: create popup for new game setup
-            NewGameView ngView = new NewGameView(mainController);
-        });
         menu.add(newGameMI);
 
         //Create game display ==============================================================
 
         //Player name label
-        playerNameLabel = new JLabel("models.Player Name: ");
+        playerNameLabel = new JLabel("Player Name: ");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -99,9 +97,6 @@ public class MainView {
 
         //Roll button
         rollButton = new JButton("Roll");
-        rollButton.addActionListener(e -> {
-            //TODO: call relevant method from controller
-        });
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 2;
@@ -110,25 +105,29 @@ public class MainView {
 
         //Suggest button
         suggestButton = new JButton("Suggest");
-        suggestButton.addActionListener(e -> {
-            //TODO: call relevant method from controller
-        });
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 3;
         c.gridwidth = 1;
         gameWindow.add(suggestButton, c);
+        suggestButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                mainController.suggestMethod();
+            }
+        });
 
         //Accuse button
         accuseButton = new JButton("Accuse");
-        accuseButton.addActionListener(e -> {
-            //TODO: call relevant method from controller
-        });
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 4;
         c.gridwidth = 1;
         gameWindow.add(accuseButton, c);
+        accuseButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                mainController.accuseMethod();
+            }
+        });
 
         //Moves label
         movesLabel = new JLabel("Moves Left: ");
@@ -142,7 +141,7 @@ public class MainView {
         cluesTextArea = new JTextArea();
         cluesTextArea.setEditable(false);                       //Prevent user from editing text area
         JScrollPane cluesSP = new JScrollPane(cluesTextArea);   //Add scroll pane to text area
-        c.fill = GridBagConstraints.BOTH;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 3;
         c.gridwidth = 1;
