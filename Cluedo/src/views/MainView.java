@@ -48,8 +48,8 @@ public class MainView {
     private JLabel movesLabel;
     private JTextArea cluesTextArea;
 
-    public MainView() {
-        mainController = new MainController();
+    public MainView(MainController mc) {
+        mainController = mc;
         displayGameWindow();
     }
 
@@ -154,8 +154,8 @@ public class MainView {
         gameWindow.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        MainView game = new MainView();
-    }
+//    public static void main(String[] args) {
+//        MainView game = new MainView();
+//    }
 
 }
