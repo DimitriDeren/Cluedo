@@ -22,7 +22,6 @@ public class BoardView extends JPanel {
     private static final int RECT_HEIGHT = WINDOW_HEIGHT / 25;
 
 
-
     private static final int spacing = 2;
     private static MainController mainController;
     private Cell[][] cells = new Cell[24][25];
@@ -36,9 +35,8 @@ public class BoardView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // draw the rectangle here
-        g.drawRect(RECT_X, RECT_Y, WINDOW_WIDTH, WINDOW_HEIGHT);
         g.setColor(Color.DARK_GRAY);
-        g.fillRect(RECT_X, RECT_Y, WINDOW_WIDTH, WINDOW_HEIGHT);
+        g.fillRect(RECT_X, RECT_Y + RECT_HEIGHT - spacing, WINDOW_WIDTH - spacing * 2, WINDOW_HEIGHT);
         g.setColor(Color.yellow);
 
         for (int y = 0; y < cells[0].length; y++) {

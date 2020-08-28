@@ -1,6 +1,5 @@
 package controllers;
 
-import com.sun.tools.javac.Main;
 import model.*;
 import views.MainView;
 
@@ -21,6 +20,23 @@ public class MainController {
     private static MainView mainView;
 
     private static Board board = new Board();
+
+    private ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
+            new Weapon("Candlestick"), new Weapon("Dagger"), new Weapon("Lead Pipe"),
+            new Weapon("Revolver"), new Weapon("Rope"), new Weapon("Spanner")));
+
+    private ArrayList<Suspects> suspects = new ArrayList<>(Arrays.asList(
+            new Suspects("Miss Scarlett"), new Suspects("Colonel Mustard"), new Suspects("Mrs. White"),
+            new Suspects("Mr. Green"), new Suspects("Mrs. Peacock"), new Suspects("Professor Plum")
+    ));
+
+    private ArrayList<Room> rooms = new ArrayList<>(Arrays.asList(
+            new Room("Kitchen"), new Room("Ball Room"), new Room("Conservatory"),
+            new Room("Dinning Room"), new Room("Billiard Room"), new Room("Library"),
+            new Room("Lounge"), new Room("Hall"), new Room("Study")
+    ));
+
+    private boolean diceStatus = false;
 
     public void newGameMethod() {
         JFrame newFrame = new JFrame();
@@ -151,26 +167,26 @@ public class MainController {
         newFrame.pack();
         newFrame.setVisible(true);
     }
-
+    
     public void accuseMethod() {
         //========================= Initialize the Buttons and PopUp Menu =========================
         JFrame frame = new JFrame("Accusation!");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setSize(400, 150);
+        frame.setSize(500, 120);
         frame.setLocation(430, 100);
 
         JPanel panel = new JPanel();
 
         frame.add(panel);
 
-        String[] suspect = { "SUSPECTS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
-        String[] weapon = { "WEAPONS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
-        String[] room = { "ROOMS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        Suspects[] suspect = {suspects.get(0), suspects.get(1),suspects.get(2),suspects.get(3),suspects.get(4), suspects.get(5)};
+        Weapon[] weapon = { weapons.get(0), weapons.get(1),weapons.get(2),weapons.get(3),weapons.get(4), weapons.get(5)};
+        Room[] room = {  rooms.get(0), rooms.get(1),rooms.get(2),rooms.get(3),rooms.get(4), rooms.get(5)};
 
-        final JComboBox<String> selChoice = new JComboBox<String>(suspect);
-        final JComboBox<String> selWeap = new JComboBox<String>(weapon);
-        final JComboBox<String> selRoom = new JComboBox<String>(room);
+        final JComboBox<Suspects> selChoice = new JComboBox<Suspects>(suspect);
+        final JComboBox<Weapon> selWeap = new JComboBox<Weapon>(weapon);
+        final JComboBox<Room> selRoom = new JComboBox<Room>(room);
 
         selChoice.setVisible(true);
         selWeap.setVisible(true);
@@ -192,7 +208,6 @@ public class MainController {
                 Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
                 Object weapChoice = selWeap.getSelectedItem(); //gets weapon item from drop-down menu
                 Object roomChoice = selRoom.getSelectedItem(); //gets room item from drop-down menu
-                System.out.println(susChoice);
                 frame.dispose();
             }
         });
@@ -212,7 +227,7 @@ public class MainController {
 
         //========================= Initialize the Buttons and PopUp Menu =========================
 
-        JFrame frame = new JFrame("Accusation!");
+        JFrame frame = new JFrame("Suggestion!");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setSize(200, 150);
@@ -223,11 +238,11 @@ public class MainController {
 
         frame.add(panel);
 
-        String[] suspect = { "SUSPECTS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
-        String[] weapon = { "WEAPONS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        Suspects[] suspect = {suspects.get(0), suspects.get(1),suspects.get(2),suspects.get(3),suspects.get(4), suspects.get(5)};
+        Weapon[] weapon = { weapons.get(0), weapons.get(1),weapons.get(2),weapons.get(3),weapons.get(4), weapons.get(5)};
 
-        final JComboBox<String> selChoice = new JComboBox<String>(suspect);
-        final JComboBox<String> selWeap = new JComboBox<String>(weapon);
+        final JComboBox<Suspects> selChoice = new JComboBox<Suspects>(suspect);
+        final JComboBox<Weapon> selWeap = new JComboBox<Weapon>(weapon);
 
         selChoice.setVisible(true);
         selWeap.setVisible(true);
@@ -244,8 +259,8 @@ public class MainController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: Close popup window when "OK" button is pressed.
-                Object choice = selChoice.getSelectedItem(); //gets item from drop-down menu
-                System.out.println(choice);
+                Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
+                Object weapChoice = selWeap.getSelectedItem(); //gets weapon item from drop-down menu
                 frame.dispose();
             }
         });
@@ -258,31 +273,9 @@ public class MainController {
         });
 
 
-        //========================= Initialize the Buttons and PopUp Menu =========================
+        //========================= CluedoGame method calls below =========================
 
     }
-
-    /*
-     * TODO: Store logic for stuff like action listeners here
-     *  - logic directly manipulating data in Models should be in relevant model class (e.g. handling coordinate movement of players)
-     * TODO: Store references to model here (use - import models.*)
-     * TODO: Update (or call update methods) of views here
-     */
-
-    private ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
-            new Weapon("Candlestick"), new Weapon("Dagger"), new Weapon("Lead Pipe"),
-            new Weapon("Revolver"), new Weapon("Rope"), new Weapon("Spanner")));
-
-    private ArrayList<Suspects> suspects = new ArrayList<>(Arrays.asList(
-            new Suspects("Miss Scarlett"), new Suspects("Colonel Mustard"), new Suspects("Mrs. White"),
-            new Suspects("Mr. Green"), new Suspects("Mrs. Peacock"), new Suspects("Professor Plum")
-    ));
-
-    private ArrayList<Room> rooms = new ArrayList<>(Arrays.asList(
-            new Room("Kitchen"), new Room("Ball Room"), new Room("Conservatory"),
-            new Room("Dinning Room"), new Room("Billiard Room"), new Room("Library"),
-            new Room("Lounge"), new Room("Hall"), new Room("Study")
-    ));
 
     private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<Item> murderPocket;
@@ -328,7 +321,9 @@ public class MainController {
         }
     }
 
-    //TODO: Fix missing gameOver variable, uncomment below to debug
+    //TODO: Fix missing gameOver variable, uncomment below to debug.
+    // Needs to implement roll, suggest, accuse functions into its respective buttons
+
 
     /*private void playGame() {
         int count = 0;
@@ -364,7 +359,7 @@ public class MainController {
 
                 // Move logic
                 // needs to be redone around buttons and keyboard listening from GUI
-                *//**if (choice <= 4) {
+                    if (choice <= 4) {
                  roll += movementController(curr, choice);
                  } else if (choice == 5) {
                  curr.checkClues();
@@ -375,14 +370,14 @@ public class MainController {
                  break;
                  } else {
                  suggestionController(curr, (count % players.size()));
-                 } *//*
+                 }
             }
             count++;
         }
     }*/
 
 
-    private int rollDice() {
+    public int rollDice() {
         Random rand = new Random();
         int roll = rand.nextInt(13);
 
@@ -396,9 +391,10 @@ public class MainController {
 
     public Cell[][] getCells() {return board.getCells();}
 
+    public boolean getDiceStatus() {return diceStatus;} //set diceStatus to true and use this function after a player has finished their turn
+
     public static void main(String[] args) {
         MainController mc = new MainController();
         mainView = new MainView(mc);
     }
 }
-

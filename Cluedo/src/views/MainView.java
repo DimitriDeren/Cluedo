@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Main Game Window View for Cluedo Game
  */
@@ -106,6 +108,16 @@ public class MainView {
         c.gridy = 2;
         c.gridwidth = 1;
         gameWindow.add(rollButton, c);
+        rollButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                mainController.rollDice();
+                System.out.println(mainController.rollDice());
+                rollButton.setEnabled(false);
+                if(mainController.getDiceStatus()){
+                    rollButton.setEnabled(true);
+                }
+            }
+        });
 
         //Suggest button
         suggestButton = new JButton("Suggest");
