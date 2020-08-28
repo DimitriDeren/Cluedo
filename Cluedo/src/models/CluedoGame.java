@@ -1,9 +1,8 @@
-/*
+package models;/*
  * Team name: Duxk (Team 54)
  * Team members: Jerome Skelton, Dimitri Ariadi, Gianpaolo Cigaral
  */
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class CluedoGame {
@@ -26,8 +25,8 @@ public class CluedoGame {
     ));
 
     private ArrayList<Room> rooms = new ArrayList<>(Arrays.asList(
-            new Room("Kitchen"), new Room("Ball Room"), new Room("Conservatory"),
-            new Room("Dinning Room"), new Room("Billiard Room"), new Room("Library"),
+            new Room("Kitchen"), new Room("Ball models.Room"), new Room("Conservatory"),
+            new Room("Dinning models.Room"), new Room("Billiard models.Room"), new Room("Library"),
             new Room("Lounge"), new Room("Hall"), new Room("Study")
     ));
 
@@ -52,7 +51,7 @@ public class CluedoGame {
 
         for (int i = 0; i < numPlayers; i++) {
             int choice = -1;
-            System.out.println("Player " + (i + 1) + ", which character will you be?\n");
+            System.out.println("models.Player " + (i + 1) + ", which character will you be?\n");
             for (int j = 0; j < susCopy.size(); j++) {
                 System.out.println((j + 1) + ". " + susCopy.get(j).name);
             }
@@ -116,7 +115,7 @@ public class CluedoGame {
                 break;
             }
 
-            // Player rolls dice, and moves
+            // models.Player rolls dice, and moves
             Player curr = players.get(count % players.size());
 
             // skip player if they have already lost
@@ -126,7 +125,7 @@ public class CluedoGame {
             }
 
             board.draw();
-            System.out.println("Player " + curr.getName() + "\'s turn");
+            System.out.println("models.Player " + curr.getName() + "\'s turn");
             int roll = rollDice();
             System.out.println("You rolled a " + roll + "\n");
 
@@ -134,7 +133,7 @@ public class CluedoGame {
             for (int i = 0; i < roll; i++) {
                 int choice = 0;
                 while (choice < 1 || choice > ((curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) ? 7 : 6)) {
-                    System.out.println("Player " + curr.getName() + " - What would you like to do?\n" + (roll - i) + " turns left\n");
+                    System.out.println("models.Player " + curr.getName() + " - What would you like to do?\n" + (roll - i) + " turns left\n");
                     System.out.println("1. Move North\n2. Move East\n3. Move South\n4. Move West\n5. Check Clues\n6. Make Accusation");
                     if (curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) {
                         System.out.println("7. Make Suggestion");
@@ -212,7 +211,7 @@ public class CluedoGame {
 
         if (accSuspect && accWeapon && accRoom) {
             gameOver = true;
-            System.out.println("Congratulations! Player " + curr.getName() + " has successfully deduced that ");
+            System.out.println("Congratulations! models.Player " + curr.getName() + " has successfully deduced that ");
             System.out.println(murderPocket.get(0).getName() + " used the " + murderPocket.get(1).getName() + " to kill someone in the " + murderPocket.get(2).getName());
         } else {
             curr.setLost(true);
@@ -226,7 +225,7 @@ public class CluedoGame {
         ArrayList<Item> suggestion = curr.suggest();
         for (int i = 0; i < players.size(); i++) {
             if (i == currIndex) {
-                System.out.println("Player index = " + i);
+                System.out.println("models.Player index = " + i);
                 continue;
             }
 
@@ -250,7 +249,7 @@ public class CluedoGame {
     }
 
 //    public static void main(String[] args) {
-//        CluedoGame game = new CluedoGame();
+//        models.CluedoGame game = new models.CluedoGame();
 //        game.play();
 //    }
 }

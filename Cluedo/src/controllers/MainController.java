@@ -40,7 +40,136 @@ public class MainController {
     private boolean suggestionStatus = false;
     private boolean gameOver = false;
 
+    public void newGameMethod() {
+        JFrame newFrame = new JFrame();
+        newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        newFrame.setResizable(false);
 
+        newFrame.setMinimumSize(new Dimension(500, 500));
+        newFrame.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        //Number of players combobox
+        Integer[] numPlayers = {3, 4, 5, 6};
+        JComboBox<Integer> playerNumChooser = new JComboBox<>(numPlayers);
+        playerNumChooser.setPreferredSize(new Dimension(50, 30));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        newFrame.add(playerNumChooser, c);
+
+        //Next button to player creation
+        JButton nextButton = new JButton("Next");
+        nextButton.setPreferredSize(new Dimension(100, 30));
+        nextButton.addActionListener(e -> {
+            playerNumChooser.setEnabled(false);
+            nextButton.setEnabled(false);
+        });
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        newFrame.add(nextButton, c);
+
+        //Player name text field
+        JLabel pNameLabel = new JLabel("Player Name: ");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        c.insets = new Insets(20, 0, 0, 0);
+        newFrame.add(pNameLabel, c);
+
+        JTextField playerNameTF = new JTextField();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        c.insets = new Insets(20, 0, 0, 0);
+        newFrame.add(playerNameTF, c);
+
+        //Suspects radio buttons
+        ButtonGroup suspectButtons = new ButtonGroup();
+
+        JLabel suspectsLabel = new JLabel("Player Suspect: ");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridwidth = 2;
+        c.insets = new Insets(20, 0, 0, 0);
+        newFrame.add(suspectsLabel, c);
+
+        //TODO: change 'suspect# name' to get suspect obj & name from Suspects ArrayList
+        JRadioButton suspect1 = new JRadioButton("suspect1 name");
+        suspect1.setSelected(true);
+        suspectButtons.add(suspect1);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 3;
+        c.gridwidth = 2;
+        c.insets = new Insets(5, 0, 0, 0);
+        newFrame.add(suspect1, c);
+
+        JRadioButton suspect2 = new JRadioButton("suspect2 name");
+        suspectButtons.add(suspect2);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 4;
+        c.gridwidth = 2;
+        c.insets = new Insets(2, 0, 0, 0);
+        newFrame.add(suspect2, c);
+
+        JRadioButton suspect3 = new JRadioButton("suspect3 name");
+        suspectButtons.add(suspect3);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 5;
+        c.gridwidth = 2;
+        c.insets = new Insets(2, 0, 0, 0);
+        newFrame.add(suspect3, c);
+
+        JRadioButton suspect4 = new JRadioButton("suspect4 name");
+        suspectButtons.add(suspect4);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 6;
+        c.gridwidth = 2;
+        c.insets = new Insets(2, 0, 0, 0);
+        newFrame.add(suspect4, c);
+
+        JRadioButton suspect5 = new JRadioButton("suspect5 name");
+        suspectButtons.add(suspect5);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 7;
+        c.gridwidth = 2;
+        c.insets = new Insets(2, 0, 0, 0);
+        newFrame.add(suspect5, c);
+
+        JRadioButton suspect6 = new JRadioButton("suspect6 name");
+        suspectButtons.add(suspect6);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 8;
+        c.gridwidth = 2;
+        c.insets = new Insets(2, 0, 0, 0);
+        newFrame.add(suspect6, c);
+
+        //Button to create next player
+        JButton nextPlayer = new JButton("Next Player ->");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 9;
+        c.gridwidth = 2;
+        c.insets = new Insets(5, 0, 0, 0);
+        newFrame.add(nextPlayer, c);
+
+
+        newFrame.pack();
+        newFrame.setVisible(true);
+    }
+    
     public void accuseMethod() {
         //========================= Initialize the Buttons and PopUp Menu =========================
         JFrame frame = new JFrame("Accusation!");
@@ -261,4 +390,3 @@ public class MainController {
         mainView = new MainView(mc);
     }
 }
-

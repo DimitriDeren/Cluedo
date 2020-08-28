@@ -78,12 +78,15 @@ public class MainView {
         menuBar.add(menu);
 
         newGameMI = new JMenuItem("New Game");
+        newGameMI.addActionListener(e -> {
+            mainController.newGameMethod();
+        });
         menu.add(newGameMI);
 
         //Create game display ==============================================================
 
-        //model.Player name label
-        playerNameLabel = new JLabel("Name: ");
+        //Player name label
+        playerNameLabel = new JLabel("Player Name: ");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -155,7 +158,7 @@ public class MainView {
         cluesTextArea = new JTextArea();
         cluesTextArea.setEditable(false);                       //Prevent user from editing text area
         JScrollPane cluesSP = new JScrollPane(cluesTextArea);   //Add scroll pane to text area
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.BOTH;
         c.gridx = 1;
         c.gridy = 3;
         c.gridwidth = 1;
