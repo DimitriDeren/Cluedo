@@ -1,6 +1,5 @@
 package controllers;
 
-import com.sun.tools.javac.Main;
 import model.*;
 import views.MainView;
 
@@ -36,6 +35,8 @@ public class MainController {
             new Room("Dinning Room"), new Room("Billiard Room"), new Room("Library"),
             new Room("Lounge"), new Room("Hall"), new Room("Study")
     ));
+
+    private boolean diceStatus = false;
 
 
     public void accuseMethod() {
@@ -97,7 +98,7 @@ public class MainController {
 
         //========================= Initialize the Buttons and PopUp Menu =========================
 
-        JFrame frame = new JFrame("Accusation!");
+        JFrame frame = new JFrame("Suggestion!");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setSize(200, 150);
@@ -108,11 +109,11 @@ public class MainController {
 
         frame.add(panel);
 
-        String[] suspect = { "SUSPECTS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
-        String[] weapon = { "WEAPONS:","CHOICE 2", "CHOICE 3","CHOICE 4","CHOICE 5","CHOICE 6"};
+        Suspects[] suspect = {suspects.get(0), suspects.get(1),suspects.get(2),suspects.get(3),suspects.get(4), suspects.get(5)};
+        Weapon[] weapon = { weapons.get(0), weapons.get(1),weapons.get(2),weapons.get(3),weapons.get(4), weapons.get(5)};
 
-        final JComboBox<String> selChoice = new JComboBox<String>(suspect);
-        final JComboBox<String> selWeap = new JComboBox<String>(weapon);
+        final JComboBox<Suspects> selChoice = new JComboBox<Suspects>(suspect);
+        final JComboBox<Weapon> selWeap = new JComboBox<Weapon>(weapon);
 
         selChoice.setVisible(true);
         selWeap.setVisible(true);
@@ -129,8 +130,8 @@ public class MainController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: Close popup window when "OK" button is pressed.
-                Object choice = selChoice.getSelectedItem(); //gets item from drop-down menu
-                System.out.println(choice);
+                Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
+                Object weapChoice = selWeap.getSelectedItem(); //gets weapon item from drop-down menu
                 frame.dispose();
             }
         });
@@ -229,7 +230,7 @@ public class MainController {
 
                 // Move logic
                 // needs to be redone around buttons and keyboard listening from GUI
-                *//**if (choice <= 4) {
+                    if (choice <= 4) {
                  roll += movementController(curr, choice);
                  } else if (choice == 5) {
                  curr.checkClues();
@@ -240,14 +241,14 @@ public class MainController {
                  break;
                  } else {
                  suggestionController(curr, (count % players.size()));
-                 } *//*
+                 }
             }
             count++;
         }
     }*/
 
 
-    private int rollDice() {
+    public int rollDice() {
         Random rand = new Random();
         int roll = rand.nextInt(13);
 
@@ -260,6 +261,8 @@ public class MainController {
 
 
     public Cell[][] getCells() {return board.getCells();}
+
+    public boolean getDiceStatus() {return diceStatus;} //set diceStatus to true and use this function after a player has finished their turn
 
     public static void main(String[] args) {
         MainController mc = new MainController();
