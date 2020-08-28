@@ -40,6 +40,11 @@ public class MainController {
     private boolean suggestionStatus = false;
     private boolean gameOver = false;
 
+
+    private ArrayList<Player> players = new ArrayList<>();
+    private int playerAmount = 0;
+    private int counter = 0;
+
     public void newGameMethod() {
         JFrame newFrame = new JFrame();
         newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -65,6 +70,7 @@ public class MainController {
         nextButton.addActionListener(e -> {
             playerNumChooser.setEnabled(false);
             nextButton.setEnabled(false);
+            playerAmount = (Integer)playerNumChooser.getSelectedItem();
         });
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
@@ -101,7 +107,7 @@ public class MainController {
         newFrame.add(suspectsLabel, c);
 
         //TODO: change 'suspect# name' to get suspect obj & name from Suspects ArrayList
-        JRadioButton suspect1 = new JRadioButton("suspect1 name");
+        JRadioButton suspect1 = new JRadioButton(suspects.get(0).toString());
         suspect1.setSelected(true);
         suspectButtons.add(suspect1);
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -111,7 +117,7 @@ public class MainController {
         c.insets = new Insets(5, 0, 0, 0);
         newFrame.add(suspect1, c);
 
-        JRadioButton suspect2 = new JRadioButton("suspect2 name");
+        JRadioButton suspect2 = new JRadioButton(suspects.get(1).toString());
         suspectButtons.add(suspect2);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -120,7 +126,7 @@ public class MainController {
         c.insets = new Insets(2, 0, 0, 0);
         newFrame.add(suspect2, c);
 
-        JRadioButton suspect3 = new JRadioButton("suspect3 name");
+        JRadioButton suspect3 = new JRadioButton(suspects.get(2).toString());
         suspectButtons.add(suspect3);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -129,7 +135,7 @@ public class MainController {
         c.insets = new Insets(2, 0, 0, 0);
         newFrame.add(suspect3, c);
 
-        JRadioButton suspect4 = new JRadioButton("suspect4 name");
+        JRadioButton suspect4 = new JRadioButton(suspects.get(3).toString());
         suspectButtons.add(suspect4);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -138,7 +144,7 @@ public class MainController {
         c.insets = new Insets(2, 0, 0, 0);
         newFrame.add(suspect4, c);
 
-        JRadioButton suspect5 = new JRadioButton("suspect5 name");
+        JRadioButton suspect5 = new JRadioButton(suspects.get(4).toString());
         suspectButtons.add(suspect5);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -147,7 +153,7 @@ public class MainController {
         c.insets = new Insets(2, 0, 0, 0);
         newFrame.add(suspect5, c);
 
-        JRadioButton suspect6 = new JRadioButton("suspect6 name");
+        JRadioButton suspect6 = new JRadioButton(suspects.get(5).toString());
         suspectButtons.add(suspect6);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -164,6 +170,17 @@ public class MainController {
         c.gridwidth = 2;
         c.insets = new Insets(5, 0, 0, 0);
         newFrame.add(nextPlayer, c);
+        nextPlayer.addActionListener(e -> {
+            if(counter < playerAmount){
+                suspectButtons.getSelection().setEnabled(false);
+                suspectButtons.getSelection().setSelected(false);
+                counter++;
+                if(counter == playerAmount) newFrame.dispose();
+            } else {
+                newFrame.dispose();
+                counter = 0;
+            }
+        });
 
 
         newFrame.pack();
@@ -279,7 +296,6 @@ public class MainController {
 
     }
 
-    private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<Item> murderPocket;
 
     private void play() {
@@ -389,4 +405,6 @@ public class MainController {
         MainController mc = new MainController();
         mainView = new MainView(mc);
     }
+
+    public ArrayList<Player> getPlayer(){return players;}
 }
