@@ -1,6 +1,6 @@
-package model;
+package models;
 
-public class Suspects implements Item
+public class Room implements Item
 {
   String name = null;
 
@@ -9,7 +9,7 @@ public class Suspects implements Item
     return name;
   }
 
-  public Suspects(String name){
+  public Room(String name) {
     this.name = name;
   }
 
