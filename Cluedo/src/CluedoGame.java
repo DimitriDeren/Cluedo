@@ -3,6 +3,8 @@
  * Team members: Jerome Skelton, Dimitri Ariadi, Gianpaolo Cigaral
  */
 
+import model.*;
+
 import java.lang.reflect.Array;
 import java.util.*;
 
