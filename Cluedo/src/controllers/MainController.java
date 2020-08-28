@@ -37,6 +37,8 @@ public class MainController {
     ));
 
     private boolean diceStatus = false;
+    private boolean suggestionStatus = false;
+    private boolean gameOver = false;
 
 
     public void accuseMethod() {
@@ -153,7 +155,7 @@ public class MainController {
 
     private void play() {
         setup();
-        //playGame();
+        playGame();
     }
 
     private void setup() {
@@ -196,12 +198,13 @@ public class MainController {
     // Needs to implement roll, suggest, accuse functions into its respective buttons
 
 
-    /*private void playGame() {
+    private void playGame() {
         int count = 0;
         int totalLost = 0;
         while (!gameOver) {
             if (totalLost == players.size()) {
                 // GUI pop up saying all players are out and reveal the murder pocket
+                gameOver = true;
                 break;
             }
 
@@ -216,36 +219,23 @@ public class MainController {
 
             // Display board and who's turn it is
             int roll = rollDice();
+
             // Update "moves left" count on GUI
+
 
             // handle player actions
             for (int i = 0; i < roll; i++) {
-                int choice = 0;
-                while (choice < 1 || choice > ((curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) ? 7 : 6)) {
-                    // Keyboard listener for player moves, or button push
-                    if (curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) {
-                        // Allow for suggestion button cause in room
-                    }
+                if (curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) {
+                    mainView.setSuggestButton(true);
+                } else {
+                    mainView.setSuggestButton(false);
                 }
-
-                // Move logic
-                // needs to be redone around buttons and keyboard listening from GUI
-                    if (choice <= 4) {
-                 roll += movementController(curr, choice);
-                 } else if (choice == 5) {
-                 curr.checkClues();
-                 roll++;
-                 } else if (choice == 6) {
-                 accusationController(curr);
-                 totalLost++;
-                 break;
-                 } else {
-                 suggestionController(curr, (count % players.size()));
-                 }
             }
+
+            diceStatus = true;
             count++;
         }
-    }*/
+    }
 
 
     public int rollDice() {
@@ -263,6 +253,8 @@ public class MainController {
     public Cell[][] getCells() {return board.getCells();}
 
     public boolean getDiceStatus() {return diceStatus;} //set diceStatus to true and use this function after a player has finished their turn
+
+    public boolean getSuggestionStatus() {return suggestionStatus;}
 
     public static void main(String[] args) {
         MainController mc = new MainController();

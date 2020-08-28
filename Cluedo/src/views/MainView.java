@@ -123,6 +123,7 @@ public class MainView {
         c.gridy = 3;
         c.gridwidth = 1;
         gameWindow.add(suggestButton, c);
+        suggestButton.setEnabled(false);
         suggestButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 mainController.suggestMethod();
@@ -166,7 +167,11 @@ public class MainView {
         gameWindow.setVisible(true);
     }
 
-//    public static void main(String[] args) {
+    public void setSuggestButton(boolean bool) {
+        suggestButton.setEnabled(bool);
+    }
+
+    //    public static void main(String[] args) {
 //        MainView game = new MainView();
 //    }
 
