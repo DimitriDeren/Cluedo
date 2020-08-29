@@ -380,41 +380,41 @@ public class MainController {
     // Needs to implement roll, suggest, accuse functions into its respective buttons
 
     private void playGame() {
-        int count = 0;
         int totalLost = 0;
         while (!gameOver) {
-            if (totalLost == players.size()) {
-                // GUI pop up saying all players are out and reveal the murder pocket
-                gameOver = true;
-                break;
-            }
-
-            // Player rolls dice, and moves
-            Player curr = players.get(count % players.size());
-
-            // skip player if they have already lost
-            if (curr.isLost()) {
-                count++;
-                continue;
-            }
-
-            // Display board and who's turn it is
-            int roll = rollDice();
-
-            // Update "moves left" count on GUI
-
-
-            // handle player actions
-            for (int i = 0; i < roll; i++) {
-                if (curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) {
-                    mainView.setSuggestButton(true);
-                } else {
-                    mainView.setSuggestButton(false);
+            for (Player p : players.values()) {
+                if (totalLost == players.size()) {
+                    // GUI pop up saying all players are out and reveal the murder pocket
+                    gameOver = true;
+                    break;
                 }
-            }
 
-            diceStatus = true;
-            count++;
+                // Player rolls dice, and moves
+                Player curr = p;
+
+                // skip player if they have already lost
+                if (curr.isLost()) {
+                    continue;
+                }
+
+                // Display board and who's turn it is
+                mainView.updatePlayerLabel(p.getName());
+                int roll = rollDice();
+
+                // Update "moves left" count on GUI
+                mainView.updateMoves(roll);
+
+                // handle player actions
+                for (int i = 0; i < roll; i++) {
+                    if (curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) {
+                        mainView.setSuggestButton(true);
+                    } else {
+                        mainView.setSuggestButton(false);
+                    }
+                }
+
+                diceStatus = true;
+            }
         }
     }
 

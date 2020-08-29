@@ -174,6 +174,10 @@ public class MainView {
         suggestButton.setEnabled(bool);
     }
 
+    public void updateMoves(int i) {movesLabel.setText("Moves Left: " + i);}
+
+    public void updatePlayerLabel(String t) {playerNameLabel.setText("Player Name: " + t);}
+
     //    public static void main(String[] args) {
 //        MainView game = new MainView();
 //    }
