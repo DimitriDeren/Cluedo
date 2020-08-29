@@ -65,7 +65,7 @@ public class CluedoGame {
             System.out.println(separate);
 
             //create player object
-            players.add(new Player(i + 1, suspects.get(choice), startingPositions.get(i), suspects, weapons, rooms));
+            players.add(new Player(String.valueOf(i + 1), suspects.get(choice), startingPositions.get(i), suspects, weapons, rooms));
 
             //update player cell position types
             startingPositions.get(i).setOccupant(i + 1);
@@ -195,7 +195,7 @@ public class CluedoGame {
             curr.setPos(newPos);
         }
 
-        newPos.setOccupant(curr.getName());
+        //newPos.setOccupant(curr.getName());
         board.draw();
 
         return change;
@@ -232,11 +232,11 @@ public class CluedoGame {
                 continue;
             }
 
-            Item refutationItem = players.get(i).refute(suggestion, curr.getName());
+            //Item refutationItem = players.get(i).refute(suggestion, curr.getName());
 
-            if (!(refutationItem == null)) {
-                curr.receiveClues(refutationItem);
-            }
+            //if (!(refutationItem == null)) {
+            //    curr.receiveClues(refutationItem);
+            //}
         }
     }
 

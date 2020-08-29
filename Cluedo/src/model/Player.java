@@ -11,7 +11,7 @@ public class Player {
     private final String separate = "===========================================\n";
 
     //player state
-    private int name;
+    private String name;
     private Suspects playerSuspect;
     private Cell pos;
     private boolean lost;
@@ -30,7 +30,7 @@ public class Player {
      * @param weaObjs - list of weapons in game
      * @param rmObjs - list of rooms in game
      */
-    public Player(int name, Suspects playerSuspect, Cell startPos, ArrayList<Suspects> susObjs, ArrayList<Weapon> weaObjs, ArrayList<Room> rmObjs) {
+    public Player(String name, Suspects playerSuspect, Cell startPos, ArrayList<Suspects> susObjs, ArrayList<Weapon> weaObjs, ArrayList<Room> rmObjs) {
         this.name = name;
         this.playerSuspect = playerSuspect;
         this.pos = startPos;
@@ -277,7 +277,7 @@ public class Player {
         cards.add(card);
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
