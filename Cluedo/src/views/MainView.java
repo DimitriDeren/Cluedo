@@ -26,6 +26,10 @@ public class MainView {
     //Window dimensions
     private static final int HEIGHT = 800;
     private static final int WIDTH = 800;
+    Action upAction;
+    Action downAction;
+    Action leftAction;
+    Action rightAction;
 
     // == Models =======================
     // store models in relevant controllers?
@@ -72,28 +76,6 @@ public class MainView {
         gameWindow = new JFrame("Cluedo");
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameWindow.setResizable(true);
-        gameWindow.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyChar() == KeyEvent.VK_UP){
-                    System.out.println("UP");
-                }
-
-                if (e.getKeyChar() == KeyEvent.VK_W){
-                    System.out.println("UP");
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
 
         gameWindow.setMinimumSize(new Dimension(WIDTH, HEIGHT));
         gameWindow.setLayout(new GridBagLayout());
@@ -192,6 +174,21 @@ public class MainView {
         gameWindow.setJMenuBar(menuBar);
         gameWindow.pack();
         gameWindow.setVisible(true);
+
+        //Initialize Key Bindings ============================================================
+        upAction = new UpAction();
+        downAction = new DownAction();
+        leftAction = new LeftAction();
+        rightAction = new RightAction();
+
+        boardPanel.getInputMap().put(KeyStroke.getKeyStroke('w'), "upAction");
+        boardPanel.getActionMap().put("upAction", upAction);
+        boardPanel.getInputMap().put(KeyStroke.getKeyStroke('s'), "downAction");
+        boardPanel.getActionMap().put("downAction", downAction);
+        boardPanel.getInputMap().put(KeyStroke.getKeyStroke('a'), "leftAction");
+        boardPanel.getActionMap().put("leftAction", leftAction);
+        boardPanel.getInputMap().put(KeyStroke.getKeyStroke('d'), "rightAction");
+        boardPanel.getActionMap().put("rightAction", rightAction);
     }
 
 
@@ -217,7 +214,42 @@ public class MainView {
         boardPanel.revalidate();
     }
 
-    public void setupGraphic(Graphics g){ graphic = g;}
+    // ================== Key Actions Setup ==================
+    public class UpAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("UP");
+            mainController.movementController(1);
+        }
+    }
+
+    public class DownAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("DOWN");
+            mainController.movementController(3);
+        }
+    }
+
+    public class LeftAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("LEFT");
+            mainController.movementController(4);
+        }
+    }
+
+    public class RightAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("RIGHT");
+            mainController.movementController(2);
+        }
+    }
+
+    public void setBoardFocus() {
+        boardPanel.requestFocusInWindow();
+    }
 
     //    public static void main(String[] args) {
 //        MainView game = new MainView();

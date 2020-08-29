@@ -342,42 +342,47 @@ public class MainController {
         mainView.updateMoves(roll);
 
         currentMoves = roll;
+        mainView.setBoardFocus();
     }
 
-    private int movementController(Player curr, int choice) {
-        //update new cell pos
-        int change = 0;
+    public void movementController(int choice) {
+        if(currentMoves != 0) {
+            //update new cell pos
+            int change = 0;
 
-        int[] newCoord = curr.move(choice);
-        if (newCoord[0] == -1 || newCoord[1] == -1) {
-            System.out.println("Not a valid movement");
-            change = 1;
-            return change;
+            int[] newCoord = currentPlayer.move(choice);
+            if (newCoord[0] == -1 || newCoord[1] == -1) {
+                System.out.println("Not a valid movement");
+                change = 1;
+            }
+
+            Cell newPos = board.getCells()[newCoord[0]][newCoord[1]];
+
+            //update old cell pos
+            Cell oldPos = currentPlayer.getPos();
+            if (oldPos.getType() != 0) {
+
+            } else {
+                oldPos.setType(0);
+            }
+
+            oldPos.setOccupant(0);
+
+            if (newPos.getType() == 13 || newPos.getOccupant() > 0) {
+                System.out.println("Not a valid movement");
+                newPos = oldPos; //set newPos to current pos if its an invalid movement
+                change = 1; //stops taking a turn away from an invalid move
+            } else {
+                currentPlayer.setPos(newPos);
+            }
+
+            currentMoves--;
+            mainView.updateMoves(currentMoves);
+            if(currentMoves == 0){
+                nextPlayerTurn();
+            }
+            mainView.updateBoard();
         }
-
-        Cell newPos = board.getCells()[newCoord[0]][newCoord[1]];
-
-        //update old cell pos
-        Cell oldPos = curr.getPos();
-        if(oldPos.getType() != 0){
-
-        } else {
-            oldPos.setType(0);
-        }
-
-        oldPos.setOccupant(0);
-
-        if(newPos.getType() == 13 || newPos.getOccupant() > 0){
-            System.out.println("Not a valid movement");
-            newPos = oldPos; //set newPos to current pos if its an invalid movement
-            change = 1; //stops taking a turn away from an invalid move
-        } else {
-            curr.setPos(newPos);
-        }
-
-        board.draw();
-
-        return change;
     }
 
     public Cell[][] getCells() {

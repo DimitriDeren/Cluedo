@@ -254,7 +254,19 @@ public class Player {
 
     public void draw(Graphics g){
         //TODO: Get player position in 2D Board and draw it
-        g.setColor(Color.BLUE);
+        if(playerSuspect.getName().equals("Miss Scarlett")){
+            g.setColor(Color.RED);
+        } else if (playerSuspect.getName().equals("Colonel Mustard")){
+            g.setColor(Color.ORANGE);
+        } else if(playerSuspect.getName().equals("Mrs. White")){
+            g.setColor(Color.WHITE);
+        } else if (playerSuspect.getName().equals("Mr. Green")){
+            g.setColor(Color.GREEN);
+        } else if(playerSuspect.getName().equals("Mrs. Peacock")){
+            g.setColor(Color.BLUE);
+        } else {
+            g.setColor(Color.PINK);
+        }
         g.fillOval(spacing + pos.getX() * RECT_WIDTH, spacing + pos.getY() * RECT_HEIGHT + RECT_HEIGHT, (RECT_WIDTH - 2 * spacing), RECT_HEIGHT - 2 * spacing);
     }
 

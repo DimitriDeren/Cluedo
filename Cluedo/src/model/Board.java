@@ -15,7 +15,7 @@ public class Board {
     public Board() {
         for (int y = 0; y < cells[0].length; y++) {
             for (int x = 0; x < cells.length; x++) {
-                cells[x][y] = new Cell(x,y,0,0, rooms.get(9), Color.YELLOW);
+                cells[x][y] = new Cell(x,y,0,0, rooms.get(9), Color.BLUE);
             }
         }
 
