@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import static java.lang.Thread.sleep;
 
@@ -28,22 +30,26 @@ public class MainView {
     // == Models =======================
     // store models in relevant controllers?
 
-    // == Views ========================
     // board view
     // setup popup view
 
     // == Controllers ==================
     private MainController mainController;
 
+
+    // == Views ========================
+
+
     // == View Elements ================
     private JFrame gameWindow;
+    private Graphics graphic;
 
     private JMenuBar menuBar;
     private JMenu menu;
     private JMenuItem newGameMI;
 
     private JLabel playerNameLabel;
-    private JPanel boardPanel;
+    private BoardView boardPanel;
     private JButton rollButton;
     private JButton suggestButton;
     private JButton accuseButton;
@@ -66,6 +72,28 @@ public class MainView {
         gameWindow = new JFrame("Cluedo");
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameWindow.setResizable(true);
+        gameWindow.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyChar() == KeyEvent.VK_UP){
+                    System.out.println("UP");
+                }
+
+                if (e.getKeyChar() == KeyEvent.VK_W){
+                    System.out.println("UP");
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
 
         gameWindow.setMinimumSize(new Dimension(WIDTH, HEIGHT));
         gameWindow.setLayout(new GridBagLayout());
@@ -166,6 +194,8 @@ public class MainView {
         gameWindow.setVisible(true);
     }
 
+
+
     public void setSuggestButton(boolean bool) {
         suggestButton.setEnabled(bool);
     }
@@ -181,6 +211,13 @@ public class MainView {
     public void updateMoves(int i) {movesLabel.setText("Moves Left: " + i);}
 
     public void updatePlayerLabel(String t) {playerNameLabel.setText("Player Name: " + t);}
+
+    public void updateBoard(){
+        boardPanel.repaint();
+        boardPanel.revalidate();
+    }
+
+    public void setupGraphic(Graphics g){ graphic = g;}
 
     //    public static void main(String[] args) {
 //        MainView game = new MainView();

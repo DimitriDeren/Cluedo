@@ -1,6 +1,7 @@
 package controllers;
 
 import model.*;
+import views.BoardView;
 import views.MainView;
 import views.NewGameView;
 
@@ -282,6 +283,8 @@ public class MainController {
         }
 
         System.out.println("Player setup done");
+        mainView.updateBoard();
+
         nextPlayerTurn();
     }
 
@@ -341,6 +344,42 @@ public class MainController {
         currentMoves = roll;
     }
 
+    private int movementController(Player curr, int choice) {
+        //update new cell pos
+        int change = 0;
+
+        int[] newCoord = curr.move(choice);
+        if (newCoord[0] == -1 || newCoord[1] == -1) {
+            System.out.println("Not a valid movement");
+            change = 1;
+            return change;
+        }
+
+        Cell newPos = board.getCells()[newCoord[0]][newCoord[1]];
+
+        //update old cell pos
+        Cell oldPos = curr.getPos();
+        if(oldPos.getType() != 0){
+
+        } else {
+            oldPos.setType(0);
+        }
+
+        oldPos.setOccupant(0);
+
+        if(newPos.getType() == 13 || newPos.getOccupant() > 0){
+            System.out.println("Not a valid movement");
+            newPos = oldPos; //set newPos to current pos if its an invalid movement
+            change = 1; //stops taking a turn away from an invalid move
+        } else {
+            curr.setPos(newPos);
+        }
+
+        board.draw();
+
+        return change;
+    }
+
     public Cell[][] getCells() {
         return board.getCells();
     }
@@ -355,6 +394,11 @@ public class MainController {
 
     public Map<String, Player> getPlayers() {
         return players;
+    }
+
+
+    public void drawPlayers(){
+
     }
 
     public void setPlayerTurnOrder(ArrayList<String> playerTurnOrder) {

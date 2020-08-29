@@ -21,6 +21,12 @@ public class Player {
     private final Map<Weapon, String> weapons;
     private final Map<Room, String> rooms;
 
+    private static final int WINDOW_WIDTH = 800;
+    private static final int WINDOW_HEIGHT = 650;
+    private static final int RECT_WIDTH = WINDOW_WIDTH / 24;
+    private static final int RECT_HEIGHT = WINDOW_HEIGHT / 25;
+    private static final int spacing = 2;
+
     /**
      * Initialise model.Player object
      * @param name - player name
@@ -249,8 +255,7 @@ public class Player {
     public void draw(Graphics g){
         //TODO: Get player position in 2D Board and draw it
         g.setColor(Color.BLUE);
-        g.drawOval(pos.getX(), pos.getY(), pos.getRectWidth(), pos.getRectHeight());
-
+        g.fillOval(spacing + pos.getX() * RECT_WIDTH, spacing + pos.getY() * RECT_HEIGHT + RECT_HEIGHT, (RECT_WIDTH - 2 * spacing), RECT_HEIGHT - 2 * spacing);
     }
 
     public Room getCurrRoom() {
