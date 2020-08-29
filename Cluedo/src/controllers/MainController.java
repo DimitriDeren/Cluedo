@@ -57,6 +57,7 @@ public class MainController {
     private int turnCount = 0;
     private Player currentPlayer;
     private int currentMoves;
+    private int totalLost = 0;
 
     public void newGameMethod() {
         NewGameView ngw = new NewGameView(this, suspects, weapons, rooms, STARTING_POSITIONS);
@@ -100,10 +101,31 @@ public class MainController {
             public void actionPerformed(ActionEvent e) {
                 //TODO: Close popup window when "OK" button is pressed.
                 //TODO: type cast choices
+                ArrayList<Item> accusation = new ArrayList<>();
+
                 Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
                 Object weapChoice = selWeap.getSelectedItem(); //gets weapon item from drop-down menu
                 Object roomChoice = selRoom.getSelectedItem(); //gets room item from drop-down menu
+
+                accusation.add((Item)susChoice);
+                accusation.add((Item)weapChoice);
+                accusation.add((Item)roomChoice);
+
                 frame.dispose();
+
+                if (murderPocket.containsAll(accusation)) {
+                    //TODO: player has won message pop-up, end the game
+                } else {
+                    currentPlayer.setLost(true);
+                    //TODO: player has lost message pop-up (show murder pocket?)
+                    totalLost++;
+                    if (totalLost == players.size()) {
+                        //TODO: end the game, all players have lost
+                    } else {
+                        //TODO: un comment on merge
+                        //nextPlayerTurn();
+                    }
+                }
             }
         });
 
@@ -133,8 +155,8 @@ public class MainController {
 
         frame.add(panel);
 
-        Suspects[] suspect = {suspects.get(0), suspects.get(1),suspects.get(2),suspects.get(3),suspects.get(4), suspects.get(5)};
-        Weapon[] weapon = { weapons.get(0), weapons.get(1),weapons.get(2),weapons.get(3),weapons.get(4), weapons.get(5)};
+        Suspects[] suspect = suspects.toArray(new Suspects[0]);
+        Weapon[] weapon = weapons.toArray(new Weapon[0]);
 
         final JComboBox<Suspects> selChoice = new JComboBox<Suspects>(suspect);
         final JComboBox<Weapon> selWeap = new JComboBox<Weapon>(weapon);
@@ -154,8 +176,32 @@ public class MainController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: Close popup window when "OK" button is pressed.
+                ArrayList<Item> suggestion = new ArrayList<>();
+
                 Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
                 Object weapChoice = selWeap.getSelectedItem(); //gets weapon item from drop-down menu
+                Object roomChoice = currentPlayer.getCurrRoom(); //gets room the current player is in
+
+                suggestion.add((Item)susChoice);
+                suggestion.add((Item)weapChoice);
+                suggestion.add((Item)roomChoice);
+
+                for (Player p : players.values()) {
+                    if (p.equals(currentPlayer)) {
+                        continue;
+                    }
+
+                    if (p.getCards().contains(susChoice) || p.getCards().contains(weapChoice) || p.getCards().contains(roomChoice)) {
+                        Item refutationItem = null;
+                        //TODO: Popup - "player * please pick a card to refute", set refutationItem to this
+                        p.refute(suggestion, currentPlayer.getName());
+
+                        if (!(refutationItem == null)) {
+                            currentPlayer.receiveClues(refutationItem);
+                        }
+                    }
+                }
+
                 frame.dispose();
             }
         });
