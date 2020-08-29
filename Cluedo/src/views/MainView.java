@@ -126,7 +126,7 @@ public class MainView {
         c.gridy = 3;
         c.gridwidth = 1;
         gameWindow.add(suggestButton, c);
-        suggestButton.setEnabled(false);
+        //suggestButton.setEnabled(false);
         suggestButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 mainController.suggestMethod();
