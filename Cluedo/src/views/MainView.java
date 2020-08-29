@@ -103,6 +103,7 @@ public class MainView {
 
         //Roll button
         rollButton = new JButton("Roll");
+        rollButton.setEnabled(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 2;
@@ -111,11 +112,6 @@ public class MainView {
         rollButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 mainController.rollDice();
-                System.out.println(mainController.rollDice());
-                rollButton.setEnabled(false);
-                if(mainController.getDiceStatus()){
-                    rollButton.setEnabled(true);
-                }
             }
         });
 
@@ -126,7 +122,7 @@ public class MainView {
         c.gridy = 3;
         c.gridwidth = 1;
         gameWindow.add(suggestButton, c);
-        //suggestButton.setEnabled(false);
+        suggestButton.setEnabled(false);
         suggestButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 mainController.suggestMethod();
@@ -172,6 +168,14 @@ public class MainView {
 
     public void setSuggestButton(boolean bool) {
         suggestButton.setEnabled(bool);
+    }
+
+    public void setRollButton(boolean bool) {
+        rollButton.setEnabled(bool);
+    }
+
+    public void setPlayerNameLabel(String str) {
+        playerNameLabel.setText("Player Name: " + str);
     }
 
     public void updateMoves(int i) {movesLabel.setText("Moves Left: " + i);}
