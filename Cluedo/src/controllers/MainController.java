@@ -383,8 +383,6 @@ public class MainController {
 
     public boolean getDiceStatus() {return diceStatus;} //set diceStatus to true and use this function after a player has finished their turn
 
-    public boolean getSuggestionStatus() {return suggestionStatus;}
-
     public static void main(String[] args) {
         MainController mc = new MainController();
         mainView = new MainView(mc);

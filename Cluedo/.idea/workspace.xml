@@ -2,49 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b134a88-51a8-40b1-a613-706268f04f18" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/CluedoGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/CluedoGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/GUI$MyGridLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/GUI$MyGridLayout.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/Utility.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/Utility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/controllers/MainController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/controllers/MainController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/controllers/MainController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/controllers/MainController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/controllers/MainController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/controllers/MainController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/controllers/MainController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/controllers/MainController$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/controllers/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/controllers/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/model/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/model/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/model/Cell.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/model/Cell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/model/CluedoGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/model/CluedoGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/model/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/model/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/model/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/model/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/model/Room.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/model/Suspects.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/model/Suspects.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/model/Utility.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/model/Utility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/model/Weapon.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/model/Weapon.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/views/BoardView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/views/BoardView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/views/GUI$MyGridLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/views/GUI$MyGridLayout.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/views/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/views/GUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/views/MainView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/views/MainView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/views/MainView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/views/MainView$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/views/MainView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/views/MainView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Cluedo/views/NewGameView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Cluedo/views/NewGameView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CluedoGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CluedoGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/CluedoGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/CluedoGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Suspects.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Suspects.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Utility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Weapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Weapon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/BoardView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/BoardView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/MainView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/NewGameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/NewGameView.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,10 +19,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/controllers/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="223" lean-forward="true" selection-start-line="223" selection-end-line="223" />
+            <state relative-caret-position="63">
+              <caret line="172" column="32" lean-forward="true" selection-start-line="172" selection-start-column="32" selection-end-line="172" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#6762#6772#0" expanded="true" />
+                <element signature="e#6838#6846#0" expanded="true" />
+                <element signature="e#6909#6915#0" expanded="true" />
+                <element signature="e#7969#7970#0" expanded="true" />
+                <element signature="e#8016#8017#0" expanded="true" />
+                <element signature="e#8840#8850#0" expanded="true" />
+                <element signature="e#8916#8924#0" expanded="true" />
+                <element signature="e#9818#9819#0" expanded="true" />
+                <element signature="e#9865#9866#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -73,11 +40,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/MainView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2720">
-              <caret line="169" column="32" selection-start-line="169" selection-start-column="16" selection-end-line="169" selection-end-column="32" />
+            <state relative-caret-position="714">
+              <caret line="168" column="26" lean-forward="true" selection-start-line="168" selection-start-column="26" selection-end-line="168" selection-end-column="26" />
               <folding>
-                <element signature="e#3859#3860#0" expanded="true" />
-                <element signature="e#3921#3922#0" expanded="true" />
+                <element signature="e#4000#4001#0" expanded="true" />
+                <element signature="e#4062#4063#0" expanded="true" />
+                <element signature="e#4418#4419#0" expanded="true" />
+                <element signature="e#4479#4480#0" expanded="true" />
                 <element signature="e#5230#5231#0" expanded="true" />
                 <element signature="e#5280#5281#0" expanded="true" />
               </folding>
@@ -198,7 +167,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25637585" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -209,7 +177,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.1855524" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.1855524" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -259,11 +227,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/MainView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2720">
-          <caret line="169" column="32" selection-start-line="169" selection-start-column="16" selection-end-line="169" selection-end-column="32" />
+        <state relative-caret-position="714">
+          <caret line="168" column="26" lean-forward="true" selection-start-line="168" selection-start-column="26" selection-end-line="168" selection-end-column="26" />
           <folding>
-            <element signature="e#3859#3860#0" expanded="true" />
-            <element signature="e#3921#3922#0" expanded="true" />
+            <element signature="e#4000#4001#0" expanded="true" />
+            <element signature="e#4062#4063#0" expanded="true" />
+            <element signature="e#4418#4419#0" expanded="true" />
+            <element signature="e#4479#4480#0" expanded="true" />
             <element signature="e#5230#5231#0" expanded="true" />
             <element signature="e#5280#5281#0" expanded="true" />
           </folding>
@@ -272,10 +242,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/controllers/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="223" lean-forward="true" selection-start-line="223" selection-end-line="223" />
+        <state relative-caret-position="63">
+          <caret line="172" column="32" lean-forward="true" selection-start-line="172" selection-start-column="32" selection-end-line="172" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#6762#6772#0" expanded="true" />
+            <element signature="e#6838#6846#0" expanded="true" />
+            <element signature="e#6909#6915#0" expanded="true" />
+            <element signature="e#7969#7970#0" expanded="true" />
+            <element signature="e#8016#8017#0" expanded="true" />
+            <element signature="e#8840#8850#0" expanded="true" />
+            <element signature="e#8916#8924#0" expanded="true" />
+            <element signature="e#9818#9819#0" expanded="true" />
+            <element signature="e#9865#9866#0" expanded="true" />
           </folding>
         </state>
       </provider>
