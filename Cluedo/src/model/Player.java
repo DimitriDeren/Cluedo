@@ -180,7 +180,7 @@ public class Player {
      * @param otherName - name of player who made the suggestion
      * @return model.Item refuteCard - item object to refute with
      */
-    public Item refute(ArrayList<Item> suggestion, String otherName) {
+    public Item refute(ArrayList<Item> suggestion, int otherName) {
         Item refuteCard = null;
 
         if (!Collections.disjoint(suggestion, this.cards)) {
@@ -280,7 +280,5 @@ public class Player {
     public String getName() {
         return name;
     }
-
-    public ArrayList<Item> getCards() {return cards;}
 
 }

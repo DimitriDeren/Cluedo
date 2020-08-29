@@ -2,6 +2,7 @@ package controllers;
 
 import model.*;
 import views.MainView;
+import views.NewGameView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +18,10 @@ public class MainController {
      * TODO: Update (or call update methods) of views here
      */
 
+    // == VIEWS ================================================================================
     private static MainView mainView;
 
+    // == MODELS ===============================================================================
     private static Board board = new Board();
 
     private ArrayList<Weapon> weapons = new ArrayList<>(Arrays.asList(
@@ -40,191 +43,23 @@ public class MainController {
             board.getCells()[0][5], board.getCells()[23][5], board.getCells()[23][12],
             board.getCells()[16][24], board.getCells()[7][24], board.getCells()[0][19]));
 
+    private Map<String, Player> players = new HashMap<>();
+
+    private ArrayList<Item> murderPocket;
+
+    // == GAME STATE ===========================================================================
     private boolean diceStatus = false;
     private boolean suggestionStatus = false;
     private boolean gameOver = false;
 
-
-    private Map<String, Player> players = new HashMap<>();
-    //TODO: possibly remove field below upon merge
+    //Current player status
+    private ArrayList<String> playerTurnOrder = new ArrayList<>();
+    private int turnCount = 0;
     private Player currentPlayer;
-    private int playerAmount = 0;
-    private int totalLost = 0;
-    private int counter = 0;
+    private int currentMoves;
 
     public void newGameMethod() {
-        JFrame newFrame = new JFrame();
-        newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        newFrame.setResizable(false);
-
-        newFrame.setMinimumSize(new Dimension(500, 500));
-        newFrame.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-
-        //Player name text field
-        JLabel pNameLabel = new JLabel("Player Name: ");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 1;
-        c.gridwidth = 1;
-        c.insets = new Insets(20, 0, 0, 0);
-        newFrame.add(pNameLabel, c);
-
-        JTextField playerNameTF = new JTextField();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 1;
-        c.gridy = 1;
-        c.gridwidth = 1;
-        c.insets = new Insets(20, 0, 0, 0);
-        newFrame.add(playerNameTF, c);
-
-        //Suspects radio buttons
-        ButtonGroup suspectButtons = new ButtonGroup();
-
-        JLabel suspectsLabel = new JLabel("Player Suspect: ");
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 2;
-        c.gridwidth = 2;
-        c.insets = new Insets(20, 0, 0, 0);
-        newFrame.add(suspectsLabel, c);
-
-        JRadioButton suspect1 = new JRadioButton(suspects.get(0).toString());
-        suspect1.setActionCommand("0");
-        suspectButtons.add(suspect1);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 3;
-        c.gridwidth = 2;
-        c.insets = new Insets(5, 0, 0, 0);
-        newFrame.add(suspect1, c);
-
-        JRadioButton suspect2 = new JRadioButton(suspects.get(1).toString());
-        suspect2.setActionCommand("1");
-        suspectButtons.add(suspect2);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 4;
-        c.gridwidth = 2;
-        c.insets = new Insets(2, 0, 0, 0);
-        newFrame.add(suspect2, c);
-
-        JRadioButton suspect3 = new JRadioButton(suspects.get(2).toString());
-        suspect3.setActionCommand("2");
-        suspectButtons.add(suspect3);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 5;
-        c.gridwidth = 2;
-        c.insets = new Insets(2, 0, 0, 0);
-        newFrame.add(suspect3, c);
-
-        JRadioButton suspect4 = new JRadioButton(suspects.get(3).toString());
-        suspect4.setActionCommand("3");
-        suspectButtons.add(suspect4);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 6;
-        c.gridwidth = 2;
-        c.insets = new Insets(2, 0, 0, 0);
-        newFrame.add(suspect4, c);
-
-        JRadioButton suspect5 = new JRadioButton(suspects.get(4).toString());
-        suspect5.setActionCommand("4");
-        suspectButtons.add(suspect5);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 7;
-        c.gridwidth = 2;
-        c.insets = new Insets(2, 0, 0, 0);
-        newFrame.add(suspect5, c);
-
-        JRadioButton suspect6 = new JRadioButton(suspects.get(5).toString());
-        suspect6.setActionCommand("5");
-        suspectButtons.add(suspect6);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 8;
-        c.gridwidth = 2;
-        c.insets = new Insets(2, 0, 0, 0);
-        newFrame.add(suspect6, c);
-
-        //Error display message
-        JLabel errorMessage = new JLabel("Please enter a name and select a suspect!");
-        errorMessage.setFont(new Font("Dialog", Font.BOLD, 12));
-        errorMessage.setForeground(Color.red);
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 10;
-        c.gridwidth = 2;
-        errorMessage.setVisible(false);
-        newFrame.add(errorMessage, c);
-
-        //Button to create next player
-        JButton nextPlayer = new JButton("Next Player ->");
-        nextPlayer.setEnabled(false);
-        nextPlayer.addActionListener(e -> {
-            //Ensure a radio button is selected and name is entered
-            if ((suspectButtons.getSelection() == null) || playerNameTF.getText().equals("")) {
-                errorMessage.setVisible(true);
-            } else if (!(suspectButtons.getSelection() == null) && !playerNameTF.getText().equals("")){
-                if (counter < playerAmount) {
-                    //Create player object
-                    int suspectIndex = Integer.parseInt(suspectButtons.getSelection().getActionCommand());
-                    String playerName = playerNameTF.getText();
-                    players.put(playerName, new Player(playerName, suspects.get(suspectIndex), STARTING_POSITIONS.get(counter), suspects, weapons, rooms));
-
-                    //Reset creator elements
-                    suspectButtons.getSelection().setEnabled(false);
-                    suspectButtons.clearSelection();
-                    errorMessage.setVisible(false);
-
-                    //Check if all players created
-                    counter++;
-                    if (counter == playerAmount) {
-                        counter = 0;
-                        newFrame.dispose();
-                    }
-                } else {
-                    counter = 0;
-                    newFrame.dispose();
-                }
-            }
-        });
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 9;
-        c.gridwidth = 2;
-        c.insets = new Insets(5, 0, 0, 0);
-        newFrame.add(nextPlayer, c);
-
-        //Number of players combobox
-        Integer[] numPlayers = {3, 4, 5, 6};
-        JComboBox<Integer> playerNumChooser = new JComboBox<>(numPlayers);
-        playerNumChooser.setPreferredSize(new Dimension(50, 30));
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridwidth = 1;
-        newFrame.add(playerNumChooser, c);
-
-        //Next button to player creation
-        JButton nextButton = new JButton("Next");
-        nextButton.setPreferredSize(new Dimension(100, 30));
-        nextButton.addActionListener(e -> {
-            playerNumChooser.setEnabled(false);
-            nextButton.setEnabled(false);
-            nextPlayer.setEnabled(true);
-            playerAmount = (Integer) playerNumChooser.getSelectedItem();
-        });
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 1;
-        c.gridy = 0;
-        c.gridwidth = 1;
-        newFrame.add(nextButton, c);
-
-        newFrame.pack();
-        newFrame.setVisible(true);
+        NewGameView ngw = new NewGameView(this, suspects, weapons, rooms, STARTING_POSITIONS);
     }
     
     public void accuseMethod() {
@@ -264,31 +99,11 @@ public class MainController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: Close popup window when "OK" button is pressed.
-                ArrayList<Item> accusation = new ArrayList<>();
-
+                //TODO: type cast choices
                 Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
                 Object weapChoice = selWeap.getSelectedItem(); //gets weapon item from drop-down menu
                 Object roomChoice = selRoom.getSelectedItem(); //gets room item from drop-down menu
-
-                accusation.add((Item)susChoice);
-                accusation.add((Item)weapChoice);
-                accusation.add((Item)roomChoice);
-
                 frame.dispose();
-
-                if (murderPocket.containsAll(accusation)) {
-                    //TODO: player has won message pop-up, end the game
-                } else {
-                    currentPlayer.setLost(true);
-                    //TODO: player has lost message pop-up (show murder pocket?)
-                    totalLost++;
-                    if (totalLost == players.size()) {
-                        //TODO: end the game, all players have lost
-                    } else {
-                        //TODO: un comment on merge
-                        //nextPlayerTurn();
-                    }
-                }
             }
         });
 
@@ -318,8 +133,8 @@ public class MainController {
 
         frame.add(panel);
 
-        Suspects[] suspect = suspects.toArray(new Suspects[0]);
-        Weapon[] weapon = weapons.toArray(new Weapon[0]);
+        Suspects[] suspect = {suspects.get(0), suspects.get(1),suspects.get(2),suspects.get(3),suspects.get(4), suspects.get(5)};
+        Weapon[] weapon = { weapons.get(0), weapons.get(1),weapons.get(2),weapons.get(3),weapons.get(4), weapons.get(5)};
 
         final JComboBox<Suspects> selChoice = new JComboBox<Suspects>(suspect);
         final JComboBox<Weapon> selWeap = new JComboBox<Weapon>(weapon);
@@ -339,32 +154,8 @@ public class MainController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: Close popup window when "OK" button is pressed.
-                ArrayList<Item> suggestion = new ArrayList<>();
-
                 Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
                 Object weapChoice = selWeap.getSelectedItem(); //gets weapon item from drop-down menu
-                Object roomChoice = currentPlayer.getCurrRoom(); //gets room the current player is in
-
-                suggestion.add((Item)susChoice);
-                suggestion.add((Item)weapChoice);
-                suggestion.add((Item)roomChoice);
-
-                for (Player p : players.values()) {
-                    if (p.equals(currentPlayer)) {
-                        continue;
-                    }
-
-                    if (p.getCards().contains(susChoice) || p.getCards().contains(weapChoice) || p.getCards().contains(roomChoice)) {
-                        Item refutationItem = null;
-                        //TODO: Popup - "player * please pick a card to refute", set refutationItem to this
-                        p.refute(suggestion, currentPlayer.getName());
-
-                        if (!(refutationItem == null)) {
-                            currentPlayer.receiveClues(refutationItem);
-                        }
-                    }
-                }
-
                 frame.dispose();
             }
         });
@@ -375,22 +166,43 @@ public class MainController {
                 frame.dispose();
             }
         });
-
-
-        //========================= CluedoGame method calls below =========================
-
     }
 
-    private ArrayList<Item> murderPocket;
+    //TODO: nextPlayer method called when player moves = 0 in movement method && after player suggests
+    private void nextPlayerTurn() {
+        System.out.println("entered next player turn");
+        String currPlayerName;
+        do {
+            currPlayerName = playerTurnOrder.get(turnCount % players.size());
+            currentPlayer = players.get(currPlayerName);
+            System.out.println(currPlayerName);
+        } while (currentPlayer.isLost());
+
+        System.out.println(currPlayerName);
+        mainView.setPlayerNameLabel(currPlayerName);
+        mainView.setRollButton(true);
+
+        checkSuggestButton();
+
+        turnCount++;
+    }
+
+    private void checkSuggestButton() {
+        if (currentPlayer.getPos().getType() > 0 && currentPlayer.getPos().getType() <= 10) {
+            mainView.setSuggestButton(true);
+        }
+    }
+
+    //========================= CluedoGame method calls below =========================
 
     private void play() {
         setup();
         playGame();
     }
 
-    private void setup() {
+    public void setup() {
         // display setup window and get setup info, create player objects using GUI and add to array
-
+        System.out.println("Player setup entered");
         // Shuffle decks
         Collections.shuffle(weapons);
         Collections.shuffle(suspects);
@@ -419,9 +231,12 @@ public class MainController {
                 count = 0;
             }
 
-            players.get(count).addCard(deck.pop());
+            players.get(playerTurnOrder.get(count)).addCard(deck.pop());
             count++;
         }
+
+        System.out.println("Player setup done");
+        nextPlayerTurn();
     }
 
     //TODO: Fix missing gameOver variable, uncomment below to debug.
@@ -447,27 +262,26 @@ public class MainController {
 
                 // Display board and who's turn it is
                 mainView.updatePlayerLabel(p.getName());
-                int roll = rollDice();
+//                int roll = rollDice();
 
                 // Update "moves left" count on GUI
-                mainView.updateMoves(roll);
+//                mainView.updateMoves(roll);
 
                 // handle player actions
-                for (int i = 0; i < roll; i++) {
-                    if (curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) {
-                        mainView.setSuggestButton(true);
-                    } else {
-                        mainView.setSuggestButton(false);
-                    }
-                }
+//                for (int i = 0; i < roll; i++) {
+//                    if (curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) {
+//                        mainView.setSuggestButton(true);
+//                    } else {
+//                        mainView.setSuggestButton(false);
+//                    }
+//                }
 
                 diceStatus = true;
             }
         }
     }
 
-
-    public int rollDice() {
+    public void rollDice() {
         Random rand = new Random();
         int roll = rand.nextInt(13);
 
@@ -475,7 +289,10 @@ public class MainController {
             roll = 1;
         }
 
-        return roll;
+        mainView.setRollButton(false);      //reset when next player's turn starts
+        mainView.updateMoves(roll);
+
+        currentMoves = roll;
     }
 
     public Cell[][] getCells() {
@@ -490,12 +307,20 @@ public class MainController {
         return suggestionStatus;
     }
 
+    public Map<String, Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayerTurnOrder(ArrayList<String> playerTurnOrder) {
+        this.playerTurnOrder = playerTurnOrder;
+    }
+
+    public void setPlayers(Map<String, Player> players) {
+        this.players = players;
+    }
+
     public static void main(String[] args) {
         MainController mc = new MainController();
         mainView = new MainView(mc);
-    }
-
-    public Map<String, Player> getPlayers() {
-        return players;
     }
 }
