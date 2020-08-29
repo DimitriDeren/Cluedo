@@ -169,7 +169,7 @@ public class MainController {
         newFrame.pack();
         newFrame.setVisible(true);
     }
-    
+
     public void accuseMethod() {
         //========================= Initialize the Buttons and PopUp Menu =========================
         JFrame frame = new JFrame("Accusation!");
