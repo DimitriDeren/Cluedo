@@ -39,7 +39,7 @@ public class BoardView extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        System.out.println("Drawing");
+//        System.out.println("Drawing");
         // draw the rectangle here
         g.setColor(Color.DARK_GRAY);
         g.fillRect(RECT_X, RECT_Y + RECT_HEIGHT - spacing, WINDOW_WIDTH - spacing * 2, WINDOW_HEIGHT);
@@ -53,9 +53,9 @@ public class BoardView extends JPanel {
 
         if(!mainController.getPlayers().isEmpty()){
         for (Player player : mainController.getPlayers().values()) {
-            System.out.println("Drawing players");
-            System.out.println(mainController.getPlayers().size());
-            System.out.println(player.getName());
+//            System.out.println("Drawing players");
+//            System.out.println(mainController.getPlayers().size());
+//            System.out.println(player.getName());
             player.draw(g);
         }
 

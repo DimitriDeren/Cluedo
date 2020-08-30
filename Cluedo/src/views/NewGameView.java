@@ -42,7 +42,7 @@ public class NewGameView extends WindowAdapter {
     }
 
     private void createDisplay() {
-        JFrame newFrame = new JFrame();
+        JFrame newFrame = new JFrame("Player Setup");
         newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         newFrame.setResizable(false);
         newFrame.addWindowListener(this);
@@ -220,10 +220,8 @@ public class NewGameView extends WindowAdapter {
 
     @Override
     public void windowClosed(WindowEvent e) {
-        System.out.println("Window closed");
         mainController.setPlayers(players);
         mainController.setPlayerTurnOrder(playerTurnOrder);
         mainController.setup();
-        System.out.println("Window closed");
     }
 }

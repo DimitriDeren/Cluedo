@@ -12,13 +12,6 @@ import java.util.*;
 
 public class MainController {
 
-    /*
-     * TODO: Store logic for stuff like action listeners here
-     *  - logic directly manipulating data in Models should be in relevant model class (e.g. handling coordinate movement of players)
-     * TODO: Store references to model here (use - import models.*)
-     * TODO: Update (or call update methods) of views here
-     */
-
     // == VIEWS ================================================================================
     private static MainView mainView;
 
@@ -49,8 +42,6 @@ public class MainController {
     private ArrayList<Item> murderPocket;
 
     // == GAME STATE ===========================================================================
-    private boolean diceStatus = false;
-    private boolean suggestionStatus = false;
     private boolean gameOver = false;
 
     //Current player status
@@ -77,8 +68,8 @@ public class MainController {
         frame.add(panel);
 
         Suspects[] suspect = {suspects.get(0), suspects.get(1),suspects.get(2),suspects.get(3),suspects.get(4), suspects.get(5)};
-        Weapon[] weapon = { weapons.get(0), weapons.get(1),weapons.get(2),weapons.get(3),weapons.get(4), weapons.get(5)};
-        Room[] room = {  rooms.get(0), rooms.get(1),rooms.get(2),rooms.get(3),rooms.get(4), rooms.get(5)};
+        Weapon[] weapon = {weapons.get(0), weapons.get(1),weapons.get(2),weapons.get(3),weapons.get(4), weapons.get(5)};
+        Room[] room = {rooms.get(0), rooms.get(1),rooms.get(2),rooms.get(3),rooms.get(4), rooms.get(5)};
 
         final JComboBox<Suspects> selChoice = new JComboBox<Suspects>(suspect);
         final JComboBox<Weapon> selWeap = new JComboBox<Weapon>(weapon);
@@ -100,8 +91,6 @@ public class MainController {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Close popup window when "OK" button is pressed.
-                //TODO: type cast choices
                 ArrayList<Item> accusation = new ArrayList<>();
 
                 Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
@@ -115,16 +104,45 @@ public class MainController {
                 frame.dispose();
 
                 if (murderPocket.containsAll(accusation)) {
-                    //TODO: player has won message pop-up, end the game
+                    //PLAYER HAS WON
+                    JOptionPane.showMessageDialog(
+                            frame,
+                            "Congratulations! Player " + currentPlayer.getName() + " has successfully deduced that \n" +
+                            murderPocket.get(0).getName() + " used the " + murderPocket.get(1).getName() + " to kill someone in the " + murderPocket.get(2).getName(),
+                            "Congratulations!",
+                            JOptionPane.PLAIN_MESSAGE
+                    );
+                    System.exit(0);
                 } else {
+                    //PLAYER HAS LOST
                     currentPlayer.setLost(true);
-                    //TODO: player has lost message pop-up (show murder pocket?)
+                    JOptionPane.showMessageDialog(
+                            frame,
+                            "Sorry you have failed to deduce the correct murder scene.",
+                            "Player Game Over",
+                            JOptionPane.PLAIN_MESSAGE
+                    );
+
                     totalLost++;
+
                     if (totalLost == players.size()) {
-                        //TODO: end the game, all players have lost
+                        JOptionPane.showMessageDialog(
+                                frame,
+                                "Sorry all players have been unable to deduce the correct murder scene.",
+                                "Game Over",
+                                JOptionPane.PLAIN_MESSAGE
+                        );
+
+                        JOptionPane.showMessageDialog(
+                                frame,
+                                murderPocket.get(0).getName() + " used the " + murderPocket.get(1).getName() + " to kill someone in the " + murderPocket.get(2).getName() + " and successfully escaped",
+                                "Game Over",
+                                JOptionPane.PLAIN_MESSAGE
+                        );
+
+                        System.exit(0);
                     } else {
-                        //TODO: un comment on merge
-                        //nextPlayerTurn();
+                        nextPlayerTurn();
                     }
                 }
             }
@@ -136,9 +154,6 @@ public class MainController {
                 frame.dispose();
             }
         });
-
-        //TODO: Get accusation method once "OK" button is pressed
-
     }
 
     public void suggestMethod() {
@@ -146,128 +161,165 @@ public class MainController {
         //========================= Initialize the Buttons and PopUp Menu =========================
 
         JFrame frame = new JFrame("Suggestion!");
-        frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setSize(200, 150);
-        frame.setLocation(430, 100);
+        frame.setMinimumSize(new Dimension(250, 200));
 
+        frame.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
-        JPanel panel = new JPanel();
+        Suspects[] suspect = new Suspects[suspects.size()];
+        suspect = suspects.toArray(suspect);
+        Weapon[] weapon = new Weapon[weapons.size()];
+        weapon = weapons.toArray(weapon);
 
-        frame.add(panel);
+        JComboBox<Suspects> selChoice = new JComboBox<>(suspect);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        frame.add(selChoice, c);
 
-        Suspects[] suspect = suspects.toArray(new Suspects[0]);
-        Weapon[] weapon = weapons.toArray(new Weapon[0]);
-
-        final JComboBox<Suspects> selChoice = new JComboBox<Suspects>(suspect);
-        final JComboBox<Weapon> selWeap = new JComboBox<Weapon>(weapon);
-
-        selChoice.setVisible(true);
-        selWeap.setVisible(true);
-        panel.add(selChoice);
-        panel.add(selWeap);
-
-        JButton btn = new JButton("OK");
-        panel.add(btn);
+        JComboBox<Weapon> selWeap = new JComboBox<>(weapon);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        frame.add(selWeap, c);
 
         JButton cancelBtn = new JButton("CANCEL");
-        panel.add(cancelBtn);
-
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<Item> suggestion = new ArrayList<>();
-
-                Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
-                Object weapChoice = selWeap.getSelectedItem(); //gets weapon item from drop-down menu
-                Object roomChoice = currentPlayer.getCurrRoom(); //gets room the current player is in
-
-                suggestion.add((Item)susChoice);
-                suggestion.add((Item)weapChoice);
-                suggestion.add((Item)roomChoice);
-
-                for (Player p : players.values()) {
-                    if (p.equals(currentPlayer)) {
-                        continue;
-                    }
-
-                    if (p.getCards().contains(susChoice) || p.getCards().contains(weapChoice) || p.getCards().contains(roomChoice)) {
-                        Item refutationItem = null;
-                        //TODO: Popup - "player * please pick a card to refute", set refutationItem to this
-                        p.refute(suggestion, currentPlayer.getName());
-
-                        if (!(refutationItem == null)) {
-                            currentPlayer.receiveClues(refutationItem);
-                        }
-                    }
-                }
-
-                frame.dispose();
-            }
-        });
-
         cancelBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
             }
         });
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        frame.add(cancelBtn, c);
+
+        JButton okBtn = new JButton("OK");
+        okBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Item> suggestion = new ArrayList<>();
+
+                Suspects susChoice = (Suspects) selChoice.getSelectedItem(); //gets suspect item from drop-down menu
+                Weapon weapChoice = (Weapon) selWeap.getSelectedItem(); //gets weapon item from drop-down menu
+                Room roomChoice = currentPlayer.getCurrRoom(); //gets room the current player is in
+
+                suggestion.add(susChoice);
+                suggestion.add(weapChoice);
+                suggestion.add(roomChoice);
+
+                suggestionController(frame, suggestion);
+
+                nextPlayerTurn();
+
+                frame.dispose();
+            }
+        });
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        frame.add(okBtn, c);
+
+        frame.pack();
+        frame.setVisible(true);
     }
 
-    //TODO: nextPlayer method called when player moves = 0 in movement method && after player suggests
+    private void suggestionController(Frame frame, ArrayList<Item> sug) {
+        for (Player p : players.values()) {
+            if (p.equals(currentPlayer)) {
+                continue;
+            }
+
+            if (Collections.disjoint(sug, p.getCards())) {
+                continue;
+            }
+
+            //Get possible refute items
+            ArrayList<Item> refuteList = new ArrayList<>();
+            for (int i = 0; i < sug.size(); i++) {
+                if (p.getCards().contains(sug.get(i))) {
+                    refuteList.add(sug.get(i));
+                }
+            }
+
+            //Refute items combobox chooser
+            Item[] refuteItems = new Item[refuteList.size()];
+            refuteItems = refuteList.toArray(refuteItems);
+
+            Item refutationItem = (Item)JOptionPane.showInputDialog(
+                    frame,
+                    "Player " + p.getName() + " - Please select a card to refute " + currentPlayer.getName() + "'s suggestion: ",
+                    "Refute",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    refuteItems,
+                    refuteItems[0]
+            );
+
+            if (!(refutationItem == null)) {
+                currentPlayer.receiveClues(refutationItem);
+                System.out.println("Received clue: " + refutationItem.getName());
+            }
+        }
+    }
+
     private void nextPlayerTurn() {
-        System.out.println("entered next player turn");
         String currPlayerName;
         do {
             currPlayerName = playerTurnOrder.get(turnCount % players.size());
             currentPlayer = players.get(currPlayerName);
-            System.out.println(currPlayerName);
+            turnCount++;
         } while (currentPlayer.isLost());
 
-        System.out.println(currPlayerName);
+        currentMoves = 0;
+
         mainView.setPlayerNameLabel(currPlayerName);
         mainView.setRollButton(true);
+        mainView.updateMoves(currentMoves);
 
         checkSuggestButton();
-
-        turnCount++;
     }
 
     private void checkSuggestButton() {
         if (currentPlayer.getPos().getType() > 0 && currentPlayer.getPos().getType() <= 10) {
             mainView.setSuggestButton(true);
+        } else {
+            mainView.setSuggestButton(false);
         }
     }
 
     //========================= CluedoGame method calls below =========================
 
-    private void play() {
-        setup();
-        playGame();
-    }
-
     public void setup() {
-        // display setup window and get setup info, create player objects using GUI and add to array
-        System.out.println("Player setup entered");
         // Shuffle decks
-        Collections.shuffle(weapons);
-        Collections.shuffle(suspects);
-        Collections.shuffle(rooms);
+        ArrayList<Suspects> susCopy = (ArrayList<Suspects>) suspects.clone();
+        ArrayList<Weapon> weaCopy = (ArrayList<Weapon>) weapons.clone();
+        ArrayList<Room> rooCopy = (ArrayList<Room>) rooms.clone();
+
+        Collections.shuffle(weaCopy);
+        Collections.shuffle(susCopy);
+        Collections.shuffle(rooCopy);
 
         // Pick one random card from each deck to be in the murderPocket
         murderPocket = new ArrayList<>();
-        murderPocket.add(suspects.get(0));
-        suspects.remove(0);
-        murderPocket.add(weapons.get(0));
-        weapons.remove(0);
-        murderPocket.add(rooms.get(0));
-        rooms.remove(0);
+        murderPocket.add(susCopy.get(0));
+        susCopy.remove(0);
+        murderPocket.add(weaCopy.get(0));
+        weaCopy.remove(0);
+        murderPocket.add(rooCopy.get(0));
+        rooCopy.remove(0);
 
         // Rest of cards in to deck and shuffle deck
         Stack<Item> deck = new Stack<>();
-        deck.addAll(weapons);
-        deck.addAll(suspects);
-        deck.addAll(rooms);
+        deck.addAll(weaCopy);
+        deck.addAll(susCopy);
+        deck.addAll(rooCopy);
         Collections.shuffle(deck);
 
         // Deal cards to players hand
@@ -281,52 +333,26 @@ public class MainController {
             count++;
         }
 
-        System.out.println("Player setup done");
+        //TODO: DEBUGGING
+        System.out.println("MURDER POCKET: ");
+        for (Item i : murderPocket) {
+            System.out.print(" " + i.getName());
+        }
+        System.out.println("");
+
+        for (Player p : players.values()) {
+            System.out.println("Player - " + p.getName() + ": ");
+            for (Item i : p.getCards()) {
+                System.out.print(" " + i.getName());
+            }
+            System.out.println("");
+        }
+
         mainView.updateBoard();
 
+        mainView.setAccuseButton(true);
+
         nextPlayerTurn();
-    }
-
-    //TODO: Fix missing gameOver variable, uncomment below to debug.
-    // Needs to implement roll, suggest, accuse functions into its respective buttons
-
-    private void playGame() {
-        int totalLost = 0;
-        while (!gameOver) {
-            for (Player p : players.values()) {
-                if (totalLost == players.size()) {
-                    // GUI pop up saying all players are out and reveal the murder pocket
-                    gameOver = true;
-                    break;
-                }
-
-                // Player rolls dice, and moves
-                Player curr = p;
-
-                // skip player if they have already lost
-                if (curr.isLost()) {
-                    continue;
-                }
-
-                // Display board and who's turn it is
-                mainView.updatePlayerLabel(p.getName());
-//                int roll = rollDice();
-
-                // Update "moves left" count on GUI
-//                mainView.updateMoves(roll);
-
-                // handle player actions
-//                for (int i = 0; i < roll; i++) {
-//                    if (curr.getPos().getType() > 0 && curr.getPos().getType() <= 10) {
-//                        mainView.setSuggestButton(true);
-//                    } else {
-//                        mainView.setSuggestButton(false);
-//                    }
-//                }
-
-                diceStatus = true;
-            }
-        }
     }
 
     public void rollDice() {
@@ -374,23 +400,24 @@ public class MainController {
             } else {
                 currentPlayer.setPos(newPos);
             }
+
             if(newPos != oldPos){
                 currentMoves--;
                 mainView.updateMoves(currentMoves);
             }
-            if(currentMoves == 0){
+
+            if (currentMoves == 0){
                 nextPlayerTurn();
             }
+
+            checkSuggestButton();
+
             mainView.updateBoard();
         }
     }
 
     public Cell[][] getCells() {
         return board.getCells();
-    }
-
-    public boolean getSuggestionStatus() {
-        return suggestionStatus;
     }
 
     public Map<String, Player> getPlayers() {

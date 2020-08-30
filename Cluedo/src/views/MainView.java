@@ -6,6 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Main Game Window View for Cluedo Game
@@ -13,7 +17,10 @@ import java.awt.event.ActionListener;
 public class MainView {
 
     /*
-     * only GUI elements should be stored here
+     * TODO: only GUI elements should be stored here
+     * TODO: create object of needed controllers
+     * TODO: action listeners should call relevant methods from controller objects and update view as needed
+     * TODO: get cell array from MainController
      */
 
     //Window dimensions
@@ -24,18 +31,8 @@ public class MainView {
     Action leftAction;
     Action rightAction;
 
-    // == Models =======================
-    // store models in relevant controllers?
-
-    // board view
-    // setup popup view
-
     // == Controllers ==================
     private MainController mainController;
-
-
-    // == Views ========================
-
 
     // == View Elements ================
     private JFrame gameWindow;
@@ -120,6 +117,7 @@ public class MainView {
 
         //Suggest button
         suggestButton = new JButton("Suggest");
+        suggestButton.setEnabled(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 3;
@@ -134,6 +132,7 @@ public class MainView {
 
         //Accuse button
         accuseButton = new JButton("Accuse");
+        accuseButton.setEnabled(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 4;
@@ -168,6 +167,13 @@ public class MainView {
         gameWindow.pack();
         gameWindow.setVisible(true);
 
+        JOptionPane.showMessageDialog(
+                gameWindow,
+                "Please click 'New Game' through the Menu in the top left to start a new game \nMovement of the players can be done through the [W] [A] [S] [D] keys ",
+                "Welcome!",
+                JOptionPane.PLAIN_MESSAGE
+        );
+
         //Initialize Key Bindings ============================================================
         upAction = new UpAction();
         downAction = new DownAction();
@@ -184,10 +190,12 @@ public class MainView {
         boardPanel.getActionMap().put("rightAction", rightAction);
     }
 
-
-
     public void setSuggestButton(boolean bool) {
         suggestButton.setEnabled(bool);
+    }
+
+    public void setAccuseButton(boolean bool) {
+        accuseButton.setEnabled(bool);
     }
 
     public void setRollButton(boolean bool) {
@@ -198,9 +206,13 @@ public class MainView {
         playerNameLabel.setText("Player Name: " + str);
     }
 
-    public void updateMoves(int i) {movesLabel.setText("Moves Left: " + i);}
+    public void updateMoves(int i) {
+        movesLabel.setText("Moves Left: " + i);
+    }
 
-    public void updatePlayerLabel(String t) {playerNameLabel.setText("Player Name: " + t);}
+    public void updatePlayerLabel(String t) {
+        playerNameLabel.setText("Player Name: " + t);
+    }
 
     public void updateBoard(){
         boardPanel.repaint();
@@ -211,6 +223,7 @@ public class MainView {
     public class UpAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("UP");
             mainController.movementController(1);
         }
     }
@@ -218,6 +231,7 @@ public class MainView {
     public class DownAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("DOWN");
             mainController.movementController(3);
         }
     }
@@ -225,6 +239,7 @@ public class MainView {
     public class LeftAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("LEFT");
             mainController.movementController(4);
         }
     }
@@ -232,6 +247,7 @@ public class MainView {
     public class RightAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("RIGHT");
             mainController.movementController(2);
         }
     }
@@ -239,6 +255,4 @@ public class MainView {
     public void setBoardFocus() {
         boardPanel.requestFocusInWindow();
     }
-
-
 }

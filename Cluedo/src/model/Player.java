@@ -274,7 +274,6 @@ public class Player {
         return pos.getRoom();
     }
 
-
     public void setPos(Cell newPos) {
         this.pos = newPos;
     }
