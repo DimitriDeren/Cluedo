@@ -4,16 +4,12 @@ import controllers.MainController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+
 /**
  * Main Game Window View for Cluedo Game
  */
 public class MainView {
-
-    /*
-     * only GUI elements should be stored here
-     */
 
     //Window dimensions
     private static final int HEIGHT = 800;
@@ -59,7 +55,7 @@ public class MainView {
     private void displayGameWindow() {
         //Define main window specs =========================================================
         gameWindow = new JFrame("Cluedo");
-        gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         gameWindow.setResizable(true);
 
         gameWindow.setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -82,6 +78,7 @@ public class MainView {
 
         //Player name label
         playerNameLabel = new JLabel("Player Name: ");
+        playerNameLabel.setFont(new Font("Dialog", Font.BOLD, 14));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -111,14 +108,13 @@ public class MainView {
         });
 
         //Suggest button
-        suggestButton = new JButton("Suggest [J]" );
+        suggestButton = new JButton("Suggest [J]");
         suggestButton.setEnabled(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 3;
         c.gridwidth = 1;
         gameWindow.add(suggestButton, c);
-        //suggestButton.setEnabled(false);
         suggestButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 mainController.suggestMethod();
@@ -148,15 +144,20 @@ public class MainView {
         gameWindow.add(movesLabel, c);
 
         //Clues text area
-        cluesTextArea = new JTextArea();
-        cluesTextArea.setEditable(false);                       //Prevent user from editing text area
-        JScrollPane cluesSP = new JScrollPane(cluesTextArea);   //Add scroll pane to text area
+        JPanel textPane = new JPanel();
+        textPane.setLayout(new BorderLayout());
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 1;
         c.gridy = 3;
         c.gridwidth = 1;
         c.gridheight = 2;
-        gameWindow.add(cluesSP, c);
+        textPane.setPreferredSize(new Dimension(450, 40));
+        gameWindow.add(textPane, c);
+
+        cluesTextArea = new JTextArea();
+        cluesTextArea.setEditable(false);                       //Prevent user from editing text area
+        JScrollPane cluesSP = new JScrollPane(cluesTextArea);   //Add scroll pane to text area
+        textPane.add(cluesSP, BorderLayout.CENTER);
 
         gameWindow.setJMenuBar(menuBar);
         gameWindow.pack();
@@ -170,6 +171,25 @@ public class MainView {
                 "Welcome!",
                 JOptionPane.PLAIN_MESSAGE
         );
+
+        gameWindow.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                String ObjButtons[] = {"Yes", "No"};
+                int promptResult = JOptionPane.showOptionDialog(
+                        gameWindow,
+                        "Are you sure you want to exit?",
+                        "Online Examination System",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.WARNING_MESSAGE,
+                        null,
+                        ObjButtons,
+                        ObjButtons[1]);
+                if(promptResult == 0) {
+                    System.exit(0);
+                }
+            }
+        });
 
         //Initialize Key Bindings ============================================================
         upAction = new UpAction();
@@ -212,12 +232,18 @@ public class MainView {
         playerNameLabel.setText("Player Name: " + str);
     }
 
-    public void updateMoves(int i) {
-        movesLabel.setText("Moves Left: " + i);
+    public void setCluesTextArea(String str) {
+        cluesTextArea.setText("");
+        cluesTextArea.append(str);
+        cluesTextArea.setCaretPosition(0);
     }
 
-    public void updatePlayerLabel(String t) {
-        playerNameLabel.setText("Player Name: " + t);
+    public JFrame getGameWindow() {
+        return gameWindow;
+    }
+
+    public void updateMoves(int i) {
+        movesLabel.setText("Moves Left: " + i);
     }
 
     public void updateBoard(){

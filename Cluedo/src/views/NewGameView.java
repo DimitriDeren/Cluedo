@@ -140,7 +140,7 @@ public class NewGameView extends WindowAdapter {
         newFrame.add(suspect6, c);
 
         //Error display message
-        JLabel errorMessage = new JLabel("Please enter a name and select a suspect!");
+        JLabel errorMessage = new JLabel("Please enter a unique name and select a suspect!");
         errorMessage.setFont(new Font("Dialog", Font.BOLD, 12));
         errorMessage.setForeground(Color.red);
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -155,7 +155,7 @@ public class NewGameView extends WindowAdapter {
         nextPlayer.setEnabled(false);
         nextPlayer.addActionListener(e -> {
             //Ensure a radio button is selected and name is entered
-            if ((suspectButtons.getSelection() == null) || playerNameTF.getText().equals("")) {
+            if ((suspectButtons.getSelection() == null) || playerNameTF.getText().equals("") || players.containsKey(playerNameTF.getText())) {
                 errorMessage.setVisible(true);
             } else if (!(suspectButtons.getSelection() == null) && !playerNameTF.getText().equals("")){
                 if (counter < playerAmount) {

@@ -53,7 +53,6 @@ public class Cell {
         return room;
     }
 
-
     public void draw(Graphics g){
         g.setColor(color);
         g.fillRect(spacing + x * RECT_WIDTH, spacing + y * RECT_HEIGHT + RECT_HEIGHT, RECT_WIDTH - 2 * spacing, RECT_HEIGHT - 2 * spacing);

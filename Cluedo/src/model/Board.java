@@ -191,8 +191,6 @@ public class Board {
         cells[6][21] = new Cell(6, 21, 8, 0, rooms.get(6), Color.DARK_GRAY); //Lounge entrance/exit
         cells[11][20] = new Cell(11, 20, 9, 0, rooms.get(7), Color.DARK_GRAY); //Hall entrance/exit
         cells[17][21] = new Cell(17, 21, 10, 0, rooms.get(8), Color.DARK_GRAY); //Study entrance/exit
-
-
     }
 
     public Cell[][] getCells() {

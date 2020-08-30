@@ -1,6 +1,7 @@
 package controllers;
 
 import model.*;
+import views.BoardView;
 import views.MainView;
 import views.NewGameView;
 
@@ -34,14 +35,13 @@ public class MainController {
 
     private static final ArrayList<Cell> STARTING_POSITIONS = new ArrayList<>(Arrays.asList(
             board.getCells()[0][5], board.getCells()[23][5], board.getCells()[23][12],
-            board.getCells()[16][24], board.getCells()[7][24], board.getCells()[0][19]));
+            board.getCells()[16][0], board.getCells()[7][0], board.getCells()[0][19]));
 
     private Map<String, Player> players = new HashMap<>();
 
     private ArrayList<Item> murderPocket;
 
     // == GAME STATE ===========================================================================
-    private boolean gameOver = false;
 
     //Current player status
     private ArrayList<String> playerTurnOrder = new ArrayList<>();
@@ -279,10 +279,18 @@ public class MainController {
         currentMoves = 0;
 
         mainView.setPlayerNameLabel(currPlayerName);
+        mainView.setCluesTextArea(currentPlayer.checkClues());
         mainView.setRollButton(true);
         mainView.updateMoves(currentMoves);
 
         checkSuggestButton();
+
+        JOptionPane.showMessageDialog(
+                mainView.getGameWindow(),
+                "Player " + currPlayerName + "'s turn! Please roll before attempting to move",
+                "Turn Over",
+                JOptionPane.PLAIN_MESSAGE
+        );
     }
 
     private void checkSuggestButton() {
@@ -341,7 +349,7 @@ public class MainController {
         System.out.println("");
 
         for (Player p : players.values()) {
-            System.out.println("Player - " + p.getName() + ": ");
+            System.out.println("Player - " + p.getName() + ": " + p.getPos().getX() + " " + p.getPos().getY());
             for (Item i : p.getCards()) {
                 System.out.print(" " + i.getName());
             }
@@ -373,10 +381,10 @@ public class MainController {
     public void movementController(int choice) {
         if(currentMoves != 0) {
             //update new cell pos
-
             int[] newCoord = currentPlayer.move(choice);
             if (newCoord[0] == -1 || newCoord[1] == -1) {
                 System.out.println("Not a valid movement");
+                return;
             }
 
             Cell newPos = board.getCells()[newCoord[0]][newCoord[1]];
@@ -394,6 +402,7 @@ public class MainController {
             if (newPos.getType() == 13 || newPos.getOccupant() > 0) {
                 System.out.println("Not a valid movement");
                 newPos = oldPos; //set newPos to current pos if its an invalid movement
+                return;
             } else {
                 currentPlayer.setPos(newPos);
             }
@@ -403,13 +412,12 @@ public class MainController {
                 mainView.updateMoves(currentMoves);
             }
 
+            checkSuggestButton();
+            mainView.updateBoard();
+
             if (currentMoves == 0){
                 nextPlayerTurn();
             }
-
-            checkSuggestButton();
-
-            mainView.updateBoard();
         }
     }
 

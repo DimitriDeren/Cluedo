@@ -88,6 +88,7 @@ public class Player {
 
         return new int[]{x, y};
     }
+
     /**
      * Receive clues from other players due to refutation
      * @param clue - received from other players
@@ -108,27 +109,31 @@ public class Player {
      *  - Will display an "X" against a received clue
      *  - Will display an " " against clues not yet received
      */
-    public void checkClues() {
-        System.out.println("MANSION CLUE REPORT");
-        System.out.println(separate);
-        System.out.println("WHO?");
+    public String checkClues() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("MANSION CLUE REPORT\n");
+        sb.append("WHO?\n");
         for (Map.Entry<Suspects, String> entry : suspects.entrySet()) {
-            System.out.println(" - " + entry.getKey().getName() + " | " + entry.getValue() + " | ");
+            String temp = " - " + entry.getKey().getName() + " | " + entry.getValue() + " | \n";
+            sb.append(temp);
         }
-        System.out.println("WHAT?");
+        sb.append("WHAT?\n");
         for (Map.Entry<Weapon, String> entry : weapons.entrySet()) {
-            System.out.println(" - " + entry.getKey().getName() + " | " + entry.getValue() + " | ");
+            String temp = " - " + entry.getKey().getName() + " | " + entry.getValue() + " | \n";
+            sb.append(temp);
         }
-        System.out.println("WHERE?");
+        sb.append("WHERE?\n");
         for (Map.Entry<Room, String> entry : rooms.entrySet()) {
-            System.out.println(" - " + entry.getKey().getName() + " | " + entry.getValue() + " | ");
+            String temp = " - " + entry.getKey().getName() + " | " + entry.getValue() + " | \n";
+            sb.append(temp);
         }
-        System.out.println(separate);
+
+        return sb.toString();
     }
 
     public void draw(Graphics g){
         //TODO: Get player position in 2D Board and draw it
-        if(playerSuspect.getName().equals("Miss Scarlett")){
+        if (playerSuspect.getName().equals("Miss Scarlett")){
             g.setColor(Color.RED);
         } else if (playerSuspect.getName().equals("Colonel Mustard")){
             g.setColor(Color.ORANGE);
@@ -166,6 +171,7 @@ public class Player {
 
     public void addCard(Item card) {
         cards.add(card);
+        receiveClues(card);
     }
 
     public String getName() {

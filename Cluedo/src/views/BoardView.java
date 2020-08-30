@@ -6,14 +6,9 @@ import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class BoardView extends JPanel {
-
-    /*
-     * TODO: note this code is just an example for testing display area on main view
-     * TODO: pass in player positions from controller
-     */
-
 
     private static final int RECT_X = 0;
     private static final int RECT_Y = RECT_X;
@@ -45,11 +40,10 @@ public class BoardView extends JPanel {
             }
         }
 
-        if(!mainController.getPlayers().isEmpty()){
-        for (Player player : mainController.getPlayers().values()) {
-            player.draw(g);
-        }
-
+        if (!mainController.getPlayers().isEmpty()){
+            for (Player player : mainController.getPlayers().values()) {
+                player.draw(g);
+            }
         }
     }
 
