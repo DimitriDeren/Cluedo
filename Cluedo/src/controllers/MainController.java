@@ -1,7 +1,6 @@
 package controllers;
 
 import model.*;
-import views.BoardView;
 import views.MainView;
 import views.NewGameView;
 
@@ -297,6 +296,7 @@ public class MainController {
     //========================= CluedoGame method calls below =========================
 
     public void setup() {
+        mainView.setBoardFocus();
         // Shuffle decks
         ArrayList<Suspects> susCopy = (ArrayList<Suspects>) suspects.clone();
         ArrayList<Weapon> weaCopy = (ArrayList<Weapon>) weapons.clone();
@@ -373,12 +373,10 @@ public class MainController {
     public void movementController(int choice) {
         if(currentMoves != 0) {
             //update new cell pos
-            int change = 0;
 
             int[] newCoord = currentPlayer.move(choice);
             if (newCoord[0] == -1 || newCoord[1] == -1) {
                 System.out.println("Not a valid movement");
-                change = 1;
             }
 
             Cell newPos = board.getCells()[newCoord[0]][newCoord[1]];
@@ -396,7 +394,6 @@ public class MainController {
             if (newPos.getType() == 13 || newPos.getOccupant() > 0) {
                 System.out.println("Not a valid movement");
                 newPos = oldPos; //set newPos to current pos if its an invalid movement
-                change = 1; //stops taking a turn away from an invalid move
             } else {
                 currentPlayer.setPos(newPos);
             }

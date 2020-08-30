@@ -53,13 +53,6 @@ public class Cell {
         return room;
     }
 
-    public static int getRectHeight() {
-        return RECT_HEIGHT;
-    }
-
-    public static int getRectWidth() {
-        return RECT_WIDTH;
-    }
 
     public void draw(Graphics g){
         g.setColor(color);

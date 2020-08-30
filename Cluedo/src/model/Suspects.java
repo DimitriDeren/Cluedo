@@ -2,7 +2,7 @@ package model;
 
 public class Suspects implements Item
 {
-  String name = null;
+  String name;
 
   @Override
   public String getName() {

@@ -2,7 +2,7 @@ package model;
 
 public class Weapon implements Item
 {
-  String name = null;
+  String name;
 
   @Override
   public String getName() {

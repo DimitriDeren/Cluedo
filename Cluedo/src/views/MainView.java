@@ -6,30 +6,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import static java.lang.Thread.sleep;
-
 /**
  * Main Game Window View for Cluedo Game
  */
 public class MainView {
 
     /*
-     * TODO: only GUI elements should be stored here
-     * TODO: create object of needed controllers
-     * TODO: action listeners should call relevant methods from controller objects and update view as needed
-     * TODO: get cell array from MainController
+     * only GUI elements should be stored here
      */
 
     //Window dimensions
     private static final int HEIGHT = 800;
     private static final int WIDTH = 800;
-    Action upAction;
-    Action downAction;
-    Action leftAction;
-    Action rightAction;
+    private Action upAction;
+    private Action downAction;
+    private Action leftAction;
+    private Action rightAction;
+    private Action suggestAction;
+    private Action accuseAction;
+    private Action rollAction;
 
     // == Controllers ==================
     private MainController mainController;
@@ -102,7 +97,7 @@ public class MainView {
         gameWindow.add(boardPanel, c);
 
         //Roll button
-        rollButton = new JButton("Roll");
+        rollButton = new JButton("Roll [R]");
         rollButton.setEnabled(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -116,7 +111,7 @@ public class MainView {
         });
 
         //Suggest button
-        suggestButton = new JButton("Suggest");
+        suggestButton = new JButton("Suggest [J]" );
         suggestButton.setEnabled(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -131,7 +126,7 @@ public class MainView {
         });
 
         //Accuse button
-        accuseButton = new JButton("Accuse");
+        accuseButton = new JButton("Accuse [K]");
         accuseButton.setEnabled(false);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -169,7 +164,9 @@ public class MainView {
 
         JOptionPane.showMessageDialog(
                 gameWindow,
-                "Please click 'New Game' through the Menu in the top left to start a new game \nMovement of the players can be done through the [W] [A] [S] [D] keys ",
+                "Please click 'New Game' through the Menu in the top left to start a new game " +
+                        "\nMovement of the players can be done through the [W] [A] [S] [D] keys " +
+                        "\nRolling, Suggestions and Accusations can be done through buttons or by pressing [R] [J] [K] respectively",
                 "Welcome!",
                 JOptionPane.PLAIN_MESSAGE
         );
@@ -179,6 +176,9 @@ public class MainView {
         downAction = new DownAction();
         leftAction = new LeftAction();
         rightAction = new RightAction();
+        rollAction = new RollAction();
+        suggestAction = new SuggestAction();
+        accuseAction = new AccuseAction();
 
         boardPanel.getInputMap().put(KeyStroke.getKeyStroke('w'), "upAction");
         boardPanel.getActionMap().put("upAction", upAction);
@@ -188,6 +188,12 @@ public class MainView {
         boardPanel.getActionMap().put("leftAction", leftAction);
         boardPanel.getInputMap().put(KeyStroke.getKeyStroke('d'), "rightAction");
         boardPanel.getActionMap().put("rightAction", rightAction);
+        boardPanel.getInputMap().put(KeyStroke.getKeyStroke('r'), "rollAction");
+        boardPanel.getActionMap().put("rollAction", rollAction);
+        boardPanel.getInputMap().put(KeyStroke.getKeyStroke('j'), "suggestAction");
+        boardPanel.getActionMap().put("suggestAction", suggestAction);
+        boardPanel.getInputMap().put(KeyStroke.getKeyStroke('k'), "accuseAction");
+        boardPanel.getActionMap().put("accuseAction", accuseAction);
     }
 
     public void setSuggestButton(boolean bool) {
@@ -223,7 +229,6 @@ public class MainView {
     public class UpAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("UP");
             mainController.movementController(1);
         }
     }
@@ -231,7 +236,6 @@ public class MainView {
     public class DownAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("DOWN");
             mainController.movementController(3);
         }
     }
@@ -239,7 +243,6 @@ public class MainView {
     public class LeftAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("LEFT");
             mainController.movementController(4);
         }
     }
@@ -247,8 +250,34 @@ public class MainView {
     public class RightAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("RIGHT");
             mainController.movementController(2);
+        }
+    }
+
+    public class RollAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(rollButton.isEnabled()){
+                mainController.rollDice();
+            }
+        }
+    }
+
+    public class AccuseAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(accuseButton.isEnabled()){
+                mainController.accuseMethod();
+            }
+        }
+    }
+
+    public class SuggestAction extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(suggestButton.isEnabled()){
+                mainController.suggestMethod();
+            }
         }
     }
 

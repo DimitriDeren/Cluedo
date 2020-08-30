@@ -6,9 +6,6 @@ import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class BoardView extends JPanel {
 
@@ -29,7 +26,6 @@ public class BoardView extends JPanel {
     private static final int spacing = 2;
     private static MainController mainController;
     private Cell[][] cells = new Cell[24][25];
-    private ArrayList<Player> players = new ArrayList<>();
 
     public BoardView(MainController mc){
         mainController = mc;
@@ -39,8 +35,6 @@ public class BoardView extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-//        System.out.println("Drawing");
-        // draw the rectangle here
         g.setColor(Color.DARK_GRAY);
         g.fillRect(RECT_X, RECT_Y + RECT_HEIGHT - spacing, WINDOW_WIDTH - spacing * 2, WINDOW_HEIGHT);
         g.setColor(Color.yellow);
@@ -53,9 +47,6 @@ public class BoardView extends JPanel {
 
         if(!mainController.getPlayers().isEmpty()){
         for (Player player : mainController.getPlayers().values()) {
-//            System.out.println("Drawing players");
-//            System.out.println(mainController.getPlayers().size());
-//            System.out.println(player.getName());
             player.draw(g);
         }
 

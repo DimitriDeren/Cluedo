@@ -195,37 +195,6 @@ public class Board {
 
     }
 
-    public void draw() {
-        System.out.println("BOARD -------------------------------------------------------------------");
-        for (int y = 0; y < cells[0].length; y++) {
-            for (int x = 0; x < cells.length; x++) {
-                if (cells[x][y].getOccupant() != 0) {
-                    if (cells[x][y].getOccupant() == 1) {
-                        System.out.print("1 ");
-                    } else if (cells[x][y].getOccupant() == 2) {
-                        System.out.print("2 ");
-                    } else if (cells[x][y].getOccupant() == 3) {
-                        System.out.print("3 ");
-                    } else if (cells[x][y].getOccupant() == 4) {
-                        System.out.print("4 ");
-                    } else if (cells[x][y].getOccupant() == 5) {
-                        System.out.print("5 ");
-                    } else {
-                        System.out.print("6 ");
-                    }
-                } else if (cells[x][y].getType() == 0) {
-                    System.out.print("  ");
-                } else if (cells[x][y].getType() > 0 && cells[x][y].getType() <= 10){
-                    System.out.print("R ");
-                } else {
-                    System.out.print("| ");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println("-------------------------------------------------------------------------");
-    }
-
     public Cell[][] getCells() {
         return cells;
     }

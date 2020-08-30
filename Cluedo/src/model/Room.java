@@ -2,7 +2,7 @@ package model;
 
 public class Room implements Item
 {
-  String name = null;
+  String name;
 
   @Override
   public String getName() {
