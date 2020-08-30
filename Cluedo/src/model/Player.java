@@ -267,12 +267,13 @@ public class Player {
         } else {
             g.setColor(Color.PINK);
         }
-        g.fillOval(spacing + pos.getX() * RECT_WIDTH, spacing + pos.getY() * RECT_HEIGHT + RECT_HEIGHT, (RECT_WIDTH - 2 * spacing), RECT_HEIGHT - 2 * spacing);
+        g.fillOval((spacing + pos.getX() * RECT_WIDTH) + (RECT_WIDTH / 8) - 1, spacing + pos.getY() * RECT_HEIGHT + RECT_HEIGHT, (RECT_HEIGHT - 2 * spacing), RECT_HEIGHT - 2 * spacing);
     }
 
     public Room getCurrRoom() {
         return pos.getRoom();
     }
+
 
     public void setPos(Cell newPos) {
         this.pos = newPos;

@@ -176,7 +176,6 @@ public class MainController {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Close popup window when "OK" button is pressed.
                 ArrayList<Item> suggestion = new ArrayList<>();
 
                 Object susChoice = selChoice.getSelectedItem(); //gets suspect item from drop-down menu
@@ -375,9 +374,10 @@ public class MainController {
             } else {
                 currentPlayer.setPos(newPos);
             }
-
-            currentMoves--;
-            mainView.updateMoves(currentMoves);
+            if(newPos != oldPos){
+                currentMoves--;
+                mainView.updateMoves(currentMoves);
+            }
             if(currentMoves == 0){
                 nextPlayerTurn();
             }
@@ -389,21 +389,12 @@ public class MainController {
         return board.getCells();
     }
 
-    public boolean getDiceStatus() {
-        return diceStatus; //set diceStatus to true and use this function after a player has finished their turn
-    }
-
     public boolean getSuggestionStatus() {
         return suggestionStatus;
     }
 
     public Map<String, Player> getPlayers() {
         return players;
-    }
-
-
-    public void drawPlayers(){
-
     }
 
     public void setPlayerTurnOrder(ArrayList<String> playerTurnOrder) {

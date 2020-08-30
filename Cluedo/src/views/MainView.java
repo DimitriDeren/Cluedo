@@ -6,10 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import static java.lang.Thread.sleep;
 
 /**
  * Main Game Window View for Cluedo Game
@@ -17,10 +13,7 @@ import static java.lang.Thread.sleep;
 public class MainView {
 
     /*
-     * TODO: only GUI elements should be stored here
-     * TODO: create object of needed controllers
-     * TODO: action listeners should call relevant methods from controller objects and update view as needed
-     * TODO: get cell array from MainController
+     * only GUI elements should be stored here
      */
 
     //Window dimensions
@@ -218,7 +211,6 @@ public class MainView {
     public class UpAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("UP");
             mainController.movementController(1);
         }
     }
@@ -226,7 +218,6 @@ public class MainView {
     public class DownAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("DOWN");
             mainController.movementController(3);
         }
     }
@@ -234,7 +225,6 @@ public class MainView {
     public class LeftAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("LEFT");
             mainController.movementController(4);
         }
     }
@@ -242,7 +232,6 @@ public class MainView {
     public class RightAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("RIGHT");
             mainController.movementController(2);
         }
     }
@@ -251,8 +240,5 @@ public class MainView {
         boardPanel.requestFocusInWindow();
     }
 
-    //    public static void main(String[] args) {
-//        MainView game = new MainView();
-//    }
 
 }

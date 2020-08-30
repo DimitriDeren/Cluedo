@@ -12,10 +12,13 @@ public class Board {
             new Room("Lounge"), new Room("Hall"), new Room("Study"), new Room("Corridor"), new Room("Stairs")
     ));
 
+    Color corridorColor = new Color(255, 153, 102);
+    Color roomColor = new Color(236, 216, 198);
+
     public Board() {
         for (int y = 0; y < cells[0].length; y++) {
             for (int x = 0; x < cells.length; x++) {
-                cells[x][y] = new Cell(x,y,0,0, rooms.get(9), Color.BLUE);
+                cells[x][y] = new Cell(x,y,0,0, rooms.get(9), corridorColor);
             }
         }
 
@@ -31,7 +34,7 @@ public class Board {
         //Kitchen model.Room
         for(int x = 0; x < 6; x++){
             for(int y = 0; y < 4; y++){
-                cells[x][y] = new Cell(x, y, 1, 0, rooms.get(0), Color.YELLOW);
+                cells[x][y] = new Cell(x, y, 1, 0, rooms.get(0), roomColor);
             }
         }
 
@@ -47,7 +50,7 @@ public class Board {
         //Ballroom room
         for(int x = 9; x < 15; x++){
             for(int y = 0; y < 4; y++){
-                cells[x][y] = new Cell(x, y, 2, 0, rooms.get(1), Color.YELLOW);
+                cells[x][y] = new Cell(x, y, 2, 0, rooms.get(1), roomColor);
             }
         }
 
@@ -63,7 +66,7 @@ public class Board {
         //Conservatory model.Room
         for(int x = 18; x < 23; x++){
             for(int y = 0; y < 4; y++){
-                cells[x][y] = new Cell(x, y, 3, 0, rooms.get(2), Color.YELLOW);
+                cells[x][y] = new Cell(x, y, 3, 0, rooms.get(2), roomColor);
             }
         }
 
@@ -79,7 +82,7 @@ public class Board {
         //Conservatory model.Room
         for(int x = 0; x < 6; x++){
             for(int y = 7; y < 18; y++){
-                cells[x][y] = new Cell(x, y, 4, 0, rooms.get(3), Color.YELLOW);
+                cells[x][y] = new Cell(x, y, 4, 0, rooms.get(3), roomColor);
             }
         }
 
@@ -94,7 +97,7 @@ public class Board {
 
         for(int x = 9; x < 15; x++){
             for(int y = 7; y < 18; y++){
-                cells[x][y] = new Cell(x, y, 5, 0, rooms.get(10), Color.YELLOW);
+                cells[x][y] = new Cell(x, y, 5, 0, rooms.get(10), roomColor);
             }
         }
 
@@ -110,7 +113,7 @@ public class Board {
         //Billiard model.Room
         for(int x = 18; x < 23; x++){
             for(int y = 7; y < 11; y++){
-                cells[x][y] = new Cell(x, y, 6, 0, rooms.get(4), Color.YELLOW);
+                cells[x][y] = new Cell(x, y, 6, 0, rooms.get(4), roomColor);
             }
         }
 
@@ -126,7 +129,7 @@ public class Board {
         //Library model.Room
         for(int x = 18; x < 23; x++){
             for(int y = 14; y < 18; y++){
-                cells[x][y] = new Cell(x, y, 7, 0, rooms.get(5), Color.YELLOW);
+                cells[x][y] = new Cell(x, y, 7, 0, rooms.get(5), roomColor);
             }
         }
 
@@ -142,7 +145,7 @@ public class Board {
         //Lounge model.Room
         for(int x = 0; x < 6; x++){
             for(int y = 21; y < 24; y++){
-                cells[x][y] = new Cell(x, y, 8, 0, rooms.get(6), Color.YELLOW);
+                cells[x][y] = new Cell(x, y, 8, 0, rooms.get(6), roomColor);
             }
         }
 
@@ -158,7 +161,7 @@ public class Board {
         //Hall model.Room
         for(int x = 9; x < 15; x++){
             for(int y = 21; y < 24; y++){
-                cells[x][y] = new Cell(x, y, 9, 0, rooms.get(7), Color.YELLOW);
+                cells[x][y] = new Cell(x, y, 9, 0, rooms.get(7), roomColor);
             }
         }
 
@@ -174,7 +177,7 @@ public class Board {
         //Study model.Room
         for(int x = 18; x < 23; x++){
             for(int y = 21; y < 24; y++){
-                cells[x][y] = new Cell(x, y, 10, 0, rooms.get(8), Color.YELLOW);
+                cells[x][y] = new Cell(x, y, 10, 0, rooms.get(8), roomColor);
             }
         }
 
@@ -183,16 +186,12 @@ public class Board {
         cells[19][4] = new Cell(19, 4, 3, 0, rooms.get(2), Color.DARK_GRAY); //Conservatory entrance/exit
         cells[4][6] = new Cell(4, 6, 4, 0, rooms.get(3), Color.DARK_GRAY); //Dining entrance/exit
         cells[4][18] = new Cell(4, 18, 5, 0, rooms.get(3), Color.DARK_GRAY); //Dining entrance/exit
-        cells[17][7] = new Cell(4, 4, 6, 0, rooms.get(4), Color.DARK_GRAY); //Billiard entrance/exit
-        cells[17][17] = new Cell(4, 4, 7, 0, rooms.get(5), Color.DARK_GRAY); //Library entrance/exit
-        cells[6][21] = new Cell(4, 4, 8, 0, rooms.get(6), Color.DARK_GRAY); //Lounge entrance/exit
-        cells[11][20] = new Cell(4, 4, 9, 0, rooms.get(7), Color.DARK_GRAY); //Hall entrance/exit
-        cells[17][21] = new Cell(4, 4, 10, 0, rooms.get(8), Color.DARK_GRAY); //Study entrance/exit
+        cells[17][7] = new Cell(17, 7, 6, 0, rooms.get(4), Color.DARK_GRAY); //Billiard entrance/exit
+        cells[17][17] = new Cell(17, 17, 7, 0, rooms.get(5), Color.DARK_GRAY); //Library entrance/exit
+        cells[6][21] = new Cell(6, 21, 8, 0, rooms.get(6), Color.DARK_GRAY); //Lounge entrance/exit
+        cells[11][20] = new Cell(11, 20, 9, 0, rooms.get(7), Color.DARK_GRAY); //Hall entrance/exit
+        cells[17][21] = new Cell(17, 21, 10, 0, rooms.get(8), Color.DARK_GRAY); //Study entrance/exit
 
-
-
-        //cells[8][17] = new model.Cell(8, 17, 5, 0); //Stairs entrance/exit
-        //cells[15][7] = new model.Cell(15, 7, 5, 0); //Stairs entrance/exit
 
     }
 
