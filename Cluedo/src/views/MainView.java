@@ -228,8 +228,8 @@ public class MainView {
         rollButton.setEnabled(bool);
     }
 
-    public void setPlayerNameLabel(String str) {
-        playerNameLabel.setText("Player Name: " + str);
+    public void setPlayerNameLabel(String name, String colour) {
+        playerNameLabel.setText("Player Name: " + name + " (" + colour + ")");
     }
 
     public void setCluesTextArea(String str) {

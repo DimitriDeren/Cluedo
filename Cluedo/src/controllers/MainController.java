@@ -278,7 +278,7 @@ public class MainController {
 
         currentMoves = 0;
 
-        mainView.setPlayerNameLabel(currPlayerName);
+        mainView.setPlayerNameLabel(currPlayerName, currentPlayer.getColorToString());
         mainView.setCluesTextArea(currentPlayer.checkClues());
         mainView.setRollButton(true);
         mainView.updateMoves(currentMoves);

@@ -182,4 +182,19 @@ public class Player {
         return cards;
     }
 
+    public String getColorToString() {
+        if (playerSuspect.getName().equals("Miss Scarlett")){
+            return "Red";
+        } else if (playerSuspect.getName().equals("Colonel Mustard")){
+            return "Orange";
+        } else if(playerSuspect.getName().equals("Mrs. White")){
+            return "White";
+        } else if (playerSuspect.getName().equals("Mr. Green")){
+            return "Green";
+        } else if(playerSuspect.getName().equals("Mrs. Peacock")){
+            return "Blue";
+        } else {
+            return "Pink";
+        }
+    }
 }
