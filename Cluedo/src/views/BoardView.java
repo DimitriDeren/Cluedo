@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Game board JPanel
+ */
 public class BoardView extends JPanel {
 
     private static final int RECT_X = 0;
@@ -22,6 +25,10 @@ public class BoardView extends JPanel {
     private static MainController mainController;
     private Cell[][] cells = new Cell[24][25];
 
+    /**
+     * Create copy of MainController instance and get board cells from MainController
+     * @param mc - single MainController object to control overall game logic
+     */
     public BoardView(MainController mc){
         mainController = mc;
         cells = mc.getCells();

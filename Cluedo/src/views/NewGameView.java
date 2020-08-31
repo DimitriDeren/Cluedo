@@ -32,6 +32,14 @@ public class NewGameView extends WindowAdapter {
     private Map<String, Player> players = new HashMap<>();
     private ArrayList<String> playerTurnOrder = new ArrayList<>();
 
+    /**
+     * Create copy of MainController instance and game objects
+     * @param mc - single MainController object to control overall game logic
+     * @param susObjs - copy of suspect objects
+     * @param weaObjs - copy of weapon objects
+     * @param rmObjs - copy of room objects
+     * @param startPos - copy of starting position cell objects
+     */
     public NewGameView(MainController mc, ArrayList<Suspects> susObjs, ArrayList<Weapon> weaObjs, ArrayList<Room> rmObjs,  ArrayList<Cell> startPos) {
         mainController = mc;
         suspects = susObjs;
@@ -41,6 +49,9 @@ public class NewGameView extends WindowAdapter {
         createDisplay();
     }
 
+    /**
+     * Create all elements on new game popup window
+     */
     private void createDisplay() {
         JFrame newFrame = new JFrame("Player Setup");
         newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

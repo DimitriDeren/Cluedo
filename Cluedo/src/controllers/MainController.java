@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
+/**
+ * Main controller to handle overall game logic and track model object states
+ */
 public class MainController {
 
     // == VIEWS ================================================================================
@@ -50,10 +53,16 @@ public class MainController {
     private int currentMoves;
     private int totalLost = 0;
 
+    /**
+     * Create new game view popup
+     */
     public void newGameMethod() {
         NewGameView ngw = new NewGameView(this, suspects, weapons, rooms, STARTING_POSITIONS);
     }
-    
+
+    /**
+     * Handle game logic for player accusation
+     */
     public void accuseMethod() {
         //========================= Initialize the Buttons and PopUp Menu =========================
         JFrame frame = new JFrame("Accusation!");
@@ -156,6 +165,9 @@ public class MainController {
         });
     }
 
+    /**
+     * Handle game logic for player suggestion
+     */
     public void suggestMethod() {
 
         //========================= Initialize the Buttons and PopUp Menu =========================
@@ -231,6 +243,11 @@ public class MainController {
         frame.setVisible(true);
     }
 
+    /**
+     * Handle game logic for player refutation
+     * @param frame - suggestion frame
+     * @param sug - player suggestion
+     */
     private void suggestionController(Frame frame, ArrayList<Item> sug) {
         for (Player p : players.values()) {
             if (p.equals(currentPlayer)) {
@@ -270,6 +287,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Handle game logic for starting the next player's turn
+     */
     private void nextPlayerTurn() {
         String currPlayerName;
         do {
@@ -295,6 +315,9 @@ public class MainController {
         );
     }
 
+    /**
+     * Check if player's position meets conditions to allow suggestion
+     */
     private void checkSuggestButton() {
         if (currentPlayer.getPos().getType() > 0 && currentPlayer.getPos().getType() <= 10) {
             mainView.setSuggestButton(true);
@@ -305,6 +328,9 @@ public class MainController {
 
     //========================= CluedoGame method calls below =========================
 
+    /**
+     * Chooses items for the murder scene and allocated clue cards to all players
+     */
     public void setup() {
         mainView.setBoardFocus();
         // Shuffle decks
@@ -365,6 +391,9 @@ public class MainController {
         nextPlayerTurn();
     }
 
+    /**
+     * Handle game logic for player dice roll
+     */
     public void rollDice() {
         Random rand = new Random();
         int roll = rand.nextInt(13);
@@ -380,6 +409,10 @@ public class MainController {
         mainView.setBoardFocus();
     }
 
+    /**
+     * Handle game logic for player movement
+     * @param choice - movement direction made by player
+     */
     public void movementController(int choice) {
         if(currentMoves != 0) {
             //update new cell pos
@@ -423,22 +456,42 @@ public class MainController {
         }
     }
 
+    /**
+     * Returns game board as 2D Cells array
+     * @return cells 2D array
+     */
     public Cell[][] getCells() {
         return board.getCells();
     }
 
+    /**
+     * Returns players in game
+     * @return players Map
+     */
     public Map<String, Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Sets player turn order
+     * @param playerTurnOrder - turn order array list to set
+     */
     public void setPlayerTurnOrder(ArrayList<String> playerTurnOrder) {
         this.playerTurnOrder = playerTurnOrder;
     }
 
+    /**
+     * Sets players in game
+     * @param players - players map to set
+     */
     public void setPlayers(Map<String, Player> players) {
         this.players = players;
     }
 
+    /**
+     * Create MainController instance and create main game window view
+     * @param args
+     */
     public static void main(String[] args) {
         MainController mc = new MainController();
         mainView = new MainView(mc);

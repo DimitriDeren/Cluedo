@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * Main Game Window View for Cluedo Game
+ * Main game window view for Cluedo game
  */
 public class MainView {
 
@@ -41,16 +41,18 @@ public class MainView {
     private JLabel movesLabel;
     private JTextArea cluesTextArea;
 
+    /**
+     * Create MainController instance and create main GUI window
+     * @param mc - single MainController object to control overall game logic
+     */
     public MainView(MainController mc) {
         mainController = mc;
         displayGameWindow();
     }
 
-    /*
+    /**
      * Create all elements on game window
-     *  - get player setup info
-     *  - call displayBoard to generate game board
-     *  - handle player turns
+     *  - update BoardView to generate game board
      */
     private void displayGameWindow() {
         //Define main window specs =========================================================
@@ -216,36 +218,68 @@ public class MainView {
         boardPanel.getActionMap().put("accuseAction", accuseAction);
     }
 
+    /**
+     * Sets suggest button component to boolean parameter
+     * @param bool - boolean to set suggest button to
+     */
     public void setSuggestButton(boolean bool) {
         suggestButton.setEnabled(bool);
     }
 
+    /**
+     * Sets accuse button component to boolean parameter
+     * @param bool - boolean to set accuse button to
+     */
     public void setAccuseButton(boolean bool) {
         accuseButton.setEnabled(bool);
     }
 
+    /**
+     * Sets roll button component to boolean parameter
+     * @param bool - boolean to set roll button to
+     */
     public void setRollButton(boolean bool) {
         rollButton.setEnabled(bool);
     }
 
+    /**
+     * Sets player name label to display string name
+     * @param name - string name to set to label
+     * @param colour - colour associated to player
+     */
     public void setPlayerNameLabel(String name, String colour) {
         playerNameLabel.setText("Player Name: " + name + " (" + colour + ")");
     }
 
+    /**
+     * Sets clues text area to display string
+     * @param str - string to display
+     */
     public void setCluesTextArea(String str) {
         cluesTextArea.setText("");
         cluesTextArea.append(str);
         cluesTextArea.setCaretPosition(0);
     }
 
+    /**
+     * Returns game window JFrame
+     * @return the game window JFrame object
+     */
     public JFrame getGameWindow() {
         return gameWindow;
     }
 
+    /**
+     * Sets moves label to integer
+     * @param i - integer to display
+     */
     public void updateMoves(int i) {
         movesLabel.setText("Moves Left: " + i);
     }
 
+    /**
+     * Updates changes to game board
+     */
     public void updateBoard(){
         boardPanel.repaint();
         boardPanel.revalidate();
