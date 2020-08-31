@@ -150,6 +150,7 @@ public class MainController {
         cancelBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mainView.setBoardFocus();
                 frame.dispose();
             }
         });
